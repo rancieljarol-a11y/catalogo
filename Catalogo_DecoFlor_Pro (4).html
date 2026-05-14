@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#1a1a1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<title id="pageTitle">Catálogo · DecoFlor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ====================================================
+   CSS CUSTOM PROPERTIES — populated by JS from config
+   ==================================================== */
+:root{
+  --primary:#C1415A;--primary2:#a0324a;--primarylight:#fdf0f3;
+  --accent:#C9875A;--accent2:#a86e3f;
+  --bg:#F9F4EF;--dark:#2C1F1F;--mid:#7A5C5C;
+  --border:rgba(201,135,90,.2);--shadow:0 10px 40px rgba(44,31,31,.1);--r:20px;
+  --font-display:'Cormorant Garamond',serif;
+  --font-body:'Jost',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--font-body);background:var(--bg);color:var(--dark);min-height:100vh;overflow-x:hidden}
+/* === iOS TOUCH FIXES === */
+*{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-touch-callout:none}
+button{
+  cursor:pointer;font-family:var(--font-body);border:none;background:none;outline:none;
+  touch-action:manipulation;-webkit-appearance:none;
+}
+a{touch-action:manipulation;cursor:pointer}
+input,textarea,select{
+  touch-action:manipulation;
+  font-size:16px !important; /* prevents iOS zoom */
+}
+.card-btn,.catbtn,.atab,.btn-add-p,.btn-cancel-p,.abtn-exp,.abtn-close,
+.btn-ed,.btn-dl,.btn-addz,.pwbtn,.zone-del,.hdr-wa,.fab{
+  touch-action:manipulation;cursor:pointer;
+  -webkit-appearance:none;
+}
+input,textarea,select{font-family:var(--font-body);outline:none}
+a{text-decoration:none}
+img{display:block;max-width:100%;object-fit:cover}
+
+/* ====================================================
+   HEADER
+   ==================================================== */
+.hdr{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;
+  background:rgba(249,244,239,.94)
+  transition:background .3s;
+}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;-webkit-user-select:none}
+.logo-img-wrap{width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1.5px solid var(--border);background:var(--primarylight);display:none}
+.logo-img-wrap.has-img{display:block}
+.logo-img-wrap img{width:100%;height:100%;object-fit:cover}
+.logo-text{display:flex;flex-direction:column}
+.logo-top{font-size:8.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:600;line-height:1}
+.logo-name{font-family:var(--font-display);font-size:20px;color:var(--dark);line-height:1.1;font-weight:600}
+.hdr-wa{
+  display:flex;align-items:center;gap:6px;
+  background:#25D366;color:#fff;
+  padding:8px 14px;border-radius:50px;
+  font-size:12px;font-weight:600;
+}
+.hdr-wa svg{width:14px;height:14px;fill:#fff;flex-shrink:0}
+
+/* ====================================================
+   HERO BANNER
+   ==================================================== */
+.hero{
+  position:relative;min-height:88vh;
+  display:flex;align-items:flex-end;overflow:hidden;padding-top:55px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  transform:scale(1.04);transition:transform 8s ease;
+}
+.hero:hover .hero-bg{transform:scale(1)}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(170deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.72) 65%,rgba(0,0,0,.9) 100%)}
+.hero-c{position:relative;z-index:2;padding:28px 20px 44px;width:100%}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.15)
+  border:1px solid rgba(255,255,255,.25);color:#fff;
+  padding:5px 13px;border-radius:30px;
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;margin-bottom:16px;
+}
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(38px,10vw,68px);
+  color:#fff;line-height:1.05;margin-bottom:10px;font-weight:300;
+}
+.hero-title em{font-style:italic;color:var(--accent)}
+.hero-sub{color:rgba(255,255,255,.62);font-size:13px;font-weight:300;margin-bottom:28px;line-height:1.55}
+.hero-btns{display:flex;gap:11px;flex-wrap:wrap}
+.btn-main{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--primary);color:#fff;
+  padding:13px 28px;border-radius:50px;
+  font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  box-shadow:0 8px 26px rgba(0,0,0,.25);transition:all .2s;
+}
+.btn-sec{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.13)
+  border:1px solid rgba(255,255,255,.28);color:#fff;
+  padding:13px 20px;border-radius:50px;
+  font-size:12px;font-weight:500;transition:all .2s;
+}
+.hero[data-hidden="true"]{display:none}
+
+/* ====================================================
+   CATEGORY BAR
+   ==================================================== */
+.catbar{
+  position:sticky;top:55px;z-index:100;
+  background:rgba(249,244,239,.95)
+  border-bottom:1px solid var(--border);padding:10px 0 9px;
+}
+.catscroll{display:flex;gap:7px;overflow-x:auto;padding:0 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.catscroll::-webkit-scrollbar{display:none}
+.catbtn{
+  flex-shrink:0;padding:7px 16px;border-radius:50px;
+  font-size:12px;font-weight:500;white-space:nowrap;
+  background:#fff;color:var(--mid);border:1.5px solid var(--border);transition:all .18s;
+}
+.catbtn.on{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 3px 12px rgba(0,0,0,.18)}
+
+/* ====================================================
+   FEED
+   ==================================================== */
+.feed{
+  padding:16px 12px 110px;
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+  max-width:1100px;margin:0 auto;
+}
+@media(max-width:380px){.feed{grid-template-columns:1fr}}
+@media(min-width:680px){.feed{grid-template-columns:repeat(3,1fr);gap:18px;padding:20px 20px 110px}}
+@media(min-width:960px){.feed{grid-template-columns:repeat(4,1fr)}}
+.sec-lbl{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:20px 4px 2px}
+.sec-lbl h3{font-family:var(--font-display);font-size:20px;color:var(--dark);white-space:nowrap;font-weight:600}
+.sec-lbl h3 em{color:var(--primary);font-style:italic}
+.sec-lbl hr{flex:1;border:none;border-top:1px solid var(--border)}
+
+/* ====================================================
+   CARD
+   ==================================================== */
+.card{
+  background:#fff;border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;
+  transition:transform .22s,box-shadow .22s;
+}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 50px rgba(44,31,31,.15)}
+.card-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:linear-gradient(135deg,#f0e0d6,#e8cfc0)}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.card:hover .card-img img{transform:scale(1.06)}
+.card-badge{
+  position:absolute;top:10px;left:10px;
+  background:var(--primary);color:#fff;
+  font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 10px;border-radius:20px;
+}
+.card-body{padding:12px 12px 14px;flex:1;display:flex;flex-direction:column;gap:4px}
+.card-cat{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.card-name{font-family:var(--font-display);font-size:16px;color:var(--dark);line-height:1.2;font-weight:600}
+.card-desc{font-size:11px;color:var(--mid);line-height:1.5;font-style:italic;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:6px}
+.card-price{font-family:var(--font-display);font-size:17px;color:var(--primary);font-weight:700;line-height:1}
+.card-btn{
+  background:var(--primary);color:#fff;
+  padding:8px 13px;border-radius:50px;
+  font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  box-shadow:0 4px 12px rgba(0,0,0,.18);transition:all .18s;flex-shrink:0;
+}
+.card-btn:active{transform:scale(.95)}
+
+/* ====================================================
+   ORDER VIEW — Full-page (no overlay, 100% iOS safe)
+   ==================================================== */
+#orderView{
+  display:none;
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:#fff;
+  z-index:400;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+}
+#orderView.open{display:block}
+.ov-topbar{
+  position:sticky;top:0;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:14px 16px;
+  display:flex;align-items:center;gap:12px;
+  z-index:10;
+}
+.ov-back{
+  display:flex;align-items:center;gap:5px;
+  color:var(--primary);font-weight:600;font-size:14px;
+  cursor:pointer;
+  padding:8px 12px 8px 0;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  min-width:44px;min-height:44px;
+  flex-shrink:0;
+}
+.ov-back-arrow{font-size:20px;line-height:1}
+.ov-headinfo{flex:1;min-width:0}
+.ov-name{
+  font-family:var(--font-display);
+  font-size:17px;color:var(--dark);font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ov-price{color:var(--primary);font-weight:700;font-size:14px;margin-top:1px}
+.oform{padding:20px 16px;display:flex;flex-direction:column;gap:14px;max-width:540px;margin:0 auto;padding-bottom:40px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.flbl{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.finput,.ftarea,.fselect{
+  padding:14px 15px;
+  border:1.5px solid rgba(201,135,90,.25);
+  border-radius:12px;
+  font-size:16px;
+  color:var(--dark);background:#fff;
+  width:100%;
+  -webkit-appearance:none;
+  box-sizing:border-box;
+}
+.finput:focus,.ftarea:focus,.fselect:focus{
+  border-color:var(--primary);
+  outline:none;
+}
+.ftarea{height:80px;resize:none;line-height:1.5}
+.wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;background:#25D366;color:#fff;
+  padding:18px 16px;border-radius:16px;
+  font-size:15px;font-weight:700;
+  cursor:pointer;
+  border:none;
+  font-family:inherit;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-appearance:none;
+  min-height:56px;
+}
+.wa-btn svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+.wa-note{text-align:center;font-size:12px;color:var(--mid);margin-top:8px;line-height:1.5}
+
+/* Float WA */
+.fab{
+  position:fixed;bottom:20px;right:16px;z-index:199;
+  width:50px;height:50px;border-radius:50%;
+  background:#25D366;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(37,211,102,.42);text-decoration:none;
+  animation:fpulse 2.4s infinite;
+}
+@keyframes fpulse{0%,100%{box-shadow:0 6px 20px rgba(37,211,102,.42)}50%{box-shadow:0 6px 30px rgba(37,211,102,.65)}}
+.fab svg{width:25px;height:25px;fill:#fff}
+
+/* Footer */
+.ftr{background:var(--dark);color:rgba(255,255,255,.6);text-align:center;padding:40px 20px 28px}
+.ftr-logo{font-family:var(--font-display);font-size:28px;color:#fff;margin-bottom:3px}
+.ftr-sub{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.ftr-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.ftr-links a{color:rgba(255,255,255,.55);font-size:13px;transition:color .18s}
+.ftr-copy{font-size:10px;color:rgba(255,255,255,.25)}
+
+/* Empty */
+.empty{grid-column:1/-1;padding:60px 20px;text-align:center;color:var(--mid)}
+.empty-ico{font-size:44px;margin-bottom:12px;opacity:.4}
+
+/* Toast */
+.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%) translateY(18px);background:#1a0f0f;color:#fff;padding:10px 20px;border-radius:50px;font-size:12.5px;font-weight:500;opacity:0;pointer-events:none;z-index:9999;transition:all .28s;white-space:nowrap;border:1px solid rgba(201,135,90,.2)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ====================================================
+   ADMIN OVERLAY
+   ==================================================== */
+#aov{display:none;position:fixed;inset:0;z-index:999;background:#0f0d0d;overflow-y:auto}
+#aov.open{display:block}
+.awrap{max-width:900px;margin:0 auto;padding:22px 14px 100px}
+.ahdr{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid rgba(201,135,90,.18);
+}
+.atitle{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;font-weight:600}
+.atitle span{color:var(--accent);font-style:italic}
+.ahdr-btns{display:flex;gap:8px;flex-wrap:wrap}
+.abtn-exp{
+  display:flex;align-items:center;gap:6px;
+  background:var(--primary);color:#fff;
+  padding:9px 18px;border-radius:50px;
+  font-size:12.5px;font-weight:600;letter-spacing:.04em;
+  box-shadow:0 4px 16px rgba(193,65,90,.3);transition:all .18s;
+}
+.abtn-exp svg{width:15px;height:15px;fill:#fff}
+.abtn-close{
+  padding:9px 18px;border-radius:50px;
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);
+  font-size:12.5px;font-weight:500;transition:all .18s;
+  border:1px solid rgba(255,255,255,.07);
+}
+.atabs{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.atabs::-webkit-scrollbar{display:none}
+.atab{
+  flex-shrink:0;padding:7px 16px;border-radius:50px;
+  font-size:12px;font-weight:500;
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.06);transition:all .18s;
+}
+.atab.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.astats{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.astat{background:rgba(255,255,255,.05);border:1px solid rgba(201,135,90,.15);border-radius:14px;padding:14px 16px;flex:1;min-width:90px}
+.astat-val{font-family:'Cormorant Garamond',serif;font-size:26px;color:#fff;font-weight:600;line-height:1}
+.astat-lbl{font-size:10.5px;color:rgba(255,255,255,.4);margin-top:3px}
+.asec{margin-bottom:24px}
+.asec-title{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+.aform{background:rgba(255,255,255,.04);border:1px solid rgba(201,135,90,.16);border-radius:18px;padding:18px}
+.aform.editing{border-color:rgba(201,135,90,.45);background:rgba(201,135,90,.05)}
+.afgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.afgrid{grid-template-columns:1fr}}
+.affull{grid-column:1/-1}
+.aflbl{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:4px}
+.afinput,.aftarea,.afselect{
+  width:100%;padding:10px 13px;
+  border:1.5px solid rgba(201,135,90,.18);border-radius:11px;
+  font-size:14px;color:#fff;background:rgba(255,255,255,.06);
+  transition:border-color .2s;
+}
+.afinput:focus,.aftarea:focus,.afselect:focus{border-color:var(--accent)}
+.aftarea{height:64px;resize:vertical;line-height:1.45}
+.afselect option{background:#1a0d0d;color:#fff}
+.afgroup{display:flex;flex-direction:column}
+.imgprev{
+  width:100%;height:120px;border-radius:11px;
+  background:rgba(255,255,255,.04);border:1.5px dashed rgba(201,135,90,.22);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;margin-top:7px;flex-direction:column;gap:5px;
+  color:rgba(255,255,255,.28);font-size:11.5px;cursor:pointer;position:relative;
+}
+.imgprev img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.imgprev input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.afactions{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap}
+.btn-add-p{background:var(--accent);color:#fff;padding:10px 22px;border-radius:50px;font-size:12.5px;font-weight:600;box-shadow:0 4px 14px rgba(201,135,90,.32);transition:all .18s}
+.btn-add-p:hover{background:var(--accent2)}
+.btn-cancel-p{background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);padding:10px 18px;border-radius:50px;font-size:12.5px;border:1px solid rgba(255,255,255,.06)}
+.aplist{display:flex;flex-direction:column;gap:8px}
+.apitem{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(201,135,90,.12);border-radius:13px;padding:10px}
+.apthumb{width:54px;height:62px;border-radius:8px;background:rgba(255,255,255,.07);flex-shrink:0;overflow:hidden}
+.apthumb img{width:100%;height:100%;object-fit:cover}
+.apinfo{flex:1;min-width:0}
+.apname{color:#fff;font-weight:600;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.apcat{font-size:9.5px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-top:2px}
+.apprice{font-family:'Cormorant Garamond',serif;color:var(--primary);font-size:15px;font-weight:700;margin-top:2px}
+.apbtns{display:flex;flex-direction:column;gap:5px;flex-shrink:0}
+.btn-ed{padding:5px 12px;border-radius:30px;background:rgba(201,135,90,.14);color:var(--accent);font-size:11px;border:1px solid rgba(201,135,90,.18);transition:all .18s}
+.btn-dl{padding:5px 12px;border-radius:30px;background:rgba(193,65,90,.1);color:#e08096;font-size:11px;border:1px solid rgba(193,65,90,.12);transition:all .18s}
+.zonelist{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.zoneitem{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(201,135,90,.12);border-radius:13px;padding:12px 14px}
+.zone-name{flex:1;color:#fff;font-size:14px;font-weight:500}
+.zone-price{color:var(--accent);font-weight:600;font-size:14px;white-space:nowrap}
+.zone-del{color:#e08096;font-size:19px;flex-shrink:0;padding:2px 6px;background:rgba(193,65,90,.1);border-radius:8px;border:1px solid rgba(193,65,90,.12)}
+.addzone{display:flex;gap:8px;flex-wrap:wrap}
+.addzone .afinput{flex:1;min-width:120px}
+.btn-addz{background:var(--accent);color:#fff;padding:10px 18px;border-radius:50px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.atab-content{display:none}
+.atab-content.on{display:block}
+
+/* ====================================================
+   ADMIN — APPEARANCE TAB (new!)
+   ==================================================== */
+.appear-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:540px){.appear-grid{grid-template-columns:1fr}}
+.appear-card{
+  background:rgba(255,255,255,.04);border:1px solid rgba(201,135,90,.14);
+  border-radius:16px;padding:16px;
+}
+.appear-card h4{color:rgba(255,255,255,.7);font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:12px;font-weight:600}
+
+/* Palettes */
+.palettes{display:flex;flex-direction:column;gap:8px}
+.pal-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 13px;border-radius:12px;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);
+  transition:all .18s;
+}
+.pal-item:hover{background:rgba(255,255,255,.07)}
+.pal-item.active{border-color:var(--accent);background:rgba(201,135,90,.08)}
+.pal-swatches{display:flex;gap:4px}
+.swatch{width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,.15)}
+.pal-label{color:#fff;font-size:12.5px;font-weight:500;flex:1}
+.pal-check{color:var(--accent);font-size:14px;opacity:0;transition:opacity .18s}
+.pal-item.active .pal-check{opacity:1}
+
+/* Font selector */
+.font-opts{display:flex;flex-direction:column;gap:7px}
+.font-opt{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 13px;border-radius:11px;cursor:pointer;
+  border:1.5px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);
+  transition:all .18s;
+}
+.font-opt:hover{background:rgba(255,255,255,.07)}
+.font-opt.active{border-color:var(--accent);background:rgba(201,135,90,.08)}
+.font-opt-name{color:#fff;font-size:13px;font-weight:500}
+.font-opt-preview{color:rgba(255,255,255,.38);font-size:13px}
+.font-opt-check{color:var(--accent);font-size:14px;opacity:0}
+.font-opt.active .font-opt-check{opacity:1}
+
+/* Logo upload in admin */
+.logo-upload-area{
+  width:100%;height:90px;border-radius:11px;
+  border:1.5px dashed rgba(201,135,90,.3);background:rgba(255,255,255,.03);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  cursor:pointer;position:relative;overflow:hidden;
+  color:rgba(255,255,255,.35);font-size:12px;transition:all .2s;
+}
+.logo-upload-area:hover{border-color:rgba(201,135,90,.6);background:rgba(201,135,90,.06)}
+.logo-upload-area img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:8px}
+.logo-upload-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+
+/* Toggle switch */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-label{color:rgba(255,255,255,.65);font-size:13px}
+.toggle{position:relative;width:42px;height:24px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0;position:absolute}
+.toggle-slider{
+  position:absolute;inset:0;border-radius:24px;
+  background:rgba(255,255,255,.12);cursor:pointer;transition:background .2s;
+}
+.toggle-slider:before{
+  content:'';position:absolute;width:18px;height:18px;border-radius:50%;
+  background:#fff;top:3px;left:3px;transition:transform .2s;
+}
+.toggle input:checked+.toggle-slider{background:var(--accent)}
+.toggle input:checked+.toggle-slider:before{transform:translateX(18px)}
+
+/* Color pickers row */
+.cpickers{display:flex;flex-direction:column;gap:8px}
+.cpick-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0}
+.cpick-label{color:rgba(255,255,255,.6);font-size:12.5px}
+.cpick-right{display:flex;align-items:center;gap:8px}
+.cpick-swatch{width:28px;height:28px;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);flex-shrink:0;cursor:pointer;overflow:hidden;position:relative}
+.cpick-swatch input[type=color]{position:absolute;inset:-4px;opacity:0;cursor:pointer;width:calc(100% + 8px);height:calc(100% + 8px)}
+.cpick-hex{width:80px;padding:5px 8px;border-radius:8px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff;font-size:12px;text-align:center}
+
+/* Banner settings */
+.banner-img-preview{
+  width:100%;height:100px;border-radius:11px;
+  border:1.5px dashed rgba(201,135,90,.25);background:rgba(255,255,255,.03);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;position:relative;overflow:hidden;color:rgba(255,255,255,.3);font-size:12px;
+}
+.banner-img-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.banner-img-preview input{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* Password change */
+.pw-change-form{display:flex;flex-direction:column;gap:10px}
+
+/* Social links */
+.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:480px){.social-grid{grid-template-columns:1fr}}
+
+/* ====================================================
+   PASSWORD GATE
+   ==================================================== */
+#pwg{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,4,4,.97)align-items:center;justify-content:center}
+#pwg.show{display:flex}
+.pwbox{background:#1a0d0d;border:1px solid rgba(201,135,90,.22);border-radius:22px;padding:34px 26px;width:min(340px,90vw);text-align:center}
+.pwico{font-size:38px;margin-bottom:12px}
+.pwtitle{font-family:'Cormorant Garamond',serif;font-size:21px;color:#fff;margin-bottom:5px}
+.pwsub{font-size:12.5px;color:rgba(255,255,255,.38);margin-bottom:18px}
+.pwinput{width:100%;padding:12px 15px;border:1.5px solid rgba(201,135,90,.22);border-radius:11px;font-size:16px;color:#fff;background:rgba(255,255,255,.06);text-align:center;letter-spacing:.18em;margin-bottom:11px;transition:border-color .2s}
+.pwinput:focus{border-color:var(--accent)}
+.pwbtn{width:100%;padding:12px;border-radius:11px;background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;box-shadow:0 4px 14px rgba(201,135,90,.32);transition:all .18s}
+.pwbtn:hover{background:var(--accent2)}
+.pwerr{font-size:11.5px;color:#e08096;margin-top:7px;min-height:15px}
+
+/* Divider in admin sections */
+.adivider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:18px 0}
+
+/* Appear full-width card */
+.appear-full{grid-column:1/-1}
+
+/* Color scheme badge */
+.scheme-badge{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--primary);color:#fff;margin-top:4px;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="logo" id="logoBtn">
+    <div class="logo-img-wrap" id="logoImgWrap">
+      <img id="logoImgEl" src="" alt="Logo">
+    </div>
+    <div class="logo-text">
+      <span class="logo-top" id="logoTagline">Hermanas</span>
+      <span class="logo-name" id="logoName">DecoFlor</span>
+    </div>
+  </div>
+  <a class="hdr-wa" id="hdrWa" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 32 32"><path d="M16 2a14 14 0 0 0-12.14 20.9L2 30l7.27-1.83A14 14 0 1 0 16 2zm6.31 19.86c-.34-.17-2.02-1-2.34-1.11-.31-.11-.54-.17-.77.17s-.88 1.11-1.08 1.34-.4.25-.74.08a9.37 9.37 0 0 1-2.74-1.69 10.28 10.28 0 0 1-1.9-2.36c-.2-.34 0-.52.15-.69s.34-.4.51-.6.23-.4.34-.57a.63.63 0 0 0 0-.6c-.08-.17-.77-1.85-1.06-2.53s-.56-.57-.77-.58h-.65a1.26 1.26 0 0 0-.91.42 3.83 3.83 0 0 0-1.19 2.84 6.64 6.64 0 0 0 1.39 3.52 15.26 15.26 0 0 0 5.84 5.15 16.82 16.82 0 0 0 1.95.72 4.69 4.69 0 0 0 2.15.14 3.52 3.52 0 0 0 2.31-1.62 2.86 2.86 0 0 0 .2-1.62c-.08-.14-.31-.22-.65-.39z"/></svg>
+    <span id="hdrWaNum">829-380-2507</span>
+  </a>
+</header>
+
+<!-- HERO BANNER -->
+<section class="hero" id="heroBanner">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <div class="hero-pill" id="heroPill">🌸 Catálogo Exclusivo · Madres 2026</div>
+    <h1 class="hero-title" id="heroTitle">Para <em>Mamá</em>,<br>con amor</h1>
+    <p class="hero-sub" id="heroSub">Pedidos limitados · Reserva con anticipación<br>Entrega el Día de las Madres</p>
+    <div class="hero-btns">
+      <a class="btn-main" href="#catalogo">Ver Colecciones ↓</a>
+      <a class="btn-sec" id="heroWa" href="#" target="_blank">📲 Consultar</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY BAR -->
+<div class="catbar" id="catalogo">
+  <div class="catscroll" id="catScroll"></div>
+</div>
+
+<!-- PRODUCT FEED -->
+<main class="feed" id="feed"></main>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="ftr-logo" id="ftrLogo">DecoFlor</div>
+  <div class="ftr-sub" id="ftrSub">Hermanas · Tú Floristería</div>
+  <div class="ftr-links">
+    <a id="ftWa" href="#" target="_blank">📲 <span id="ftrPhone">829-380-2507</span></a>
+    <a id="ftrInsta" href="https://instagram.com/hermanasdecoflor" target="_blank">📸 @HermanasDecoflor</a>
+  </div>
+  <p class="ftr-copy" id="ftrCopy">© 2026 Hermanas DecoFlor · Todos los derechos reservados</p>
+</footer>
+
+<!-- FLOATING WA -->
+<a class="fab" id="fabWa" href="#" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 2a14 14 0 0 0-12.14 20.9L2 30l7.27-1.83A14 14 0 1 0 16 2zm6.31 19.86c-.34-.17-2.02-1-2.34-1.11-.31-.11-.54-.17-.77.17s-.88 1.11-1.08 1.34-.4.25-.74.08a9.37 9.37 0 0 1-2.74-1.69 10.28 10.28 0 0 1-1.9-2.36c-.2-.34 0-.52.15-.69s.34-.4.51-.6.23-.4.34-.57a.63.63 0 0 0 0-.6c-.08-.17-.77-1.85-1.06-2.53s-.56-.57-.77-.58h-.65a1.26 1.26 0 0 0-.91.42 3.83 3.83 0 0 0-1.19 2.84 6.64 6.64 0 0 0 1.39 3.52 15.26 15.26 0 0 0 5.84 5.15 16.82 16.82 0 0 0 1.95.72 4.69 4.69 0 0 0 2.15.14 3.52 3.52 0 0 0 2.31-1.62 2.86 2.86 0 0 0 .2-1.62c-.08-.14-.31-.22-.65-.39z"/></svg>
+</a>
+
+<!-- ORDER VIEW — Full-page, no overlay, 100% iOS compatible -->
+<div id="orderView">
+  <div class="ov-topbar">
+    <button class="ov-back" onclick="closeOrder()">
+      <span class="ov-back-arrow">&#8592;</span>
+      Volver
+    </button>
+    <div class="ov-headinfo">
+      <div class="ov-name" id="sheetName"></div>
+      <div class="ov-price" id="sheetPrice"></div>
+    </div>
+  </div>
+  <div class="oform">
+    <div class="fg">
+      <label class="flbl">👤 Nombre de quien recibe *</label>
+      <input class="finput" id="oName" type="text" placeholder="Nombre completo" autocomplete="name" autocorrect="off">
+    </div>
+    <div class="fg">
+      <label class="flbl">📞 Teléfono de contacto *</label>
+      <input class="finput" id="oPhone" type="tel" placeholder="809-000-0000" autocomplete="tel">
+    </div>
+    <div class="fg">
+      <label class="flbl">📍 Entrega / Recogida</label>
+      <select class="finput fselect" id="oZone">
+        <option value="">Seleccionar opción...</option>
+      </select>
+    </div>
+    <div class="fg" id="customAddrGroup" style="display:none">
+      <label class="flbl">Dirección exacta</label>
+      <input class="finput" id="oAddr" type="text" placeholder="Calle, número, sector...">
+    </div>
+    <div class="fg">
+      <label class="flbl">💌 Mensaje para Mamá (opcional)</label>
+      <textarea class="ftarea" id="oMsg" placeholder="Escribe algo especial para Mamá..."></textarea>
+    </div>
+    <button class="wa-btn" id="waBtnConfirm" onclick="confirmOrder()">
+      <svg viewBox="0 0 32 32"><path d="M16 2a14 14 0 0 0-12.14 20.9L2 30l7.27-1.83A14 14 0 1 0 16 2zm6.31 19.86c-.34-.17-2.02-1-2.34-1.11-.31-.11-.54-.17-.77.17s-.88 1.11-1.08 1.34-.4.25-.74.08a9.37 9.37 0 0 1-2.74-1.69 10.28 10.28 0 0 1-1.9-2.36c-.2-.34 0-.52.15-.69s.34-.4.51-.6.23-.4.34-.57a.63.63 0 0 0 0-.6c-.08-.17-.77-1.85-1.06-2.53s-.56-.57-.77-.58h-.65a1.26 1.26 0 0 0-.91.42 3.83 3.83 0 0 0-1.19 2.84 6.64 6.64 0 0 0 1.39 3.52 15.26 15.26 0 0 0 5.84 5.15 16.82 16.82 0 0 0 1.95.72 4.69 4.69 0 0 0 2.15.14 3.52 3.52 0 0 0 2.31-1.62 2.86 2.86 0 0 0 .2-1.62c-.08-.14-.31-.22-.65-.39z"/></svg>
+      Finalizar Pedido por WhatsApp
+    </button>
+    <p class="wa-note">Se abrirá WhatsApp con toda la información.<br>El negocio confirmará y acordará el pago contigo.</p>
+  </div>
+</div>
+
+<!-- ===== ADMIN OVERLAY ===== -->
+<div id="aov">
+  <div class="awrap">
+    <div class="ahdr">
+      <div class="atitle">Panel <span>Admin</span></div>
+      <div class="ahdr-btns">
+        <button class="abtn-exp" onclick="exportHTML()">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Descargar Catálogo
+        </button>
+        <button class="abtn-close" onclick="closeAdmin()">✕ Cerrar</button>
+      </div>
+    </div>
+
+    <div class="astats" id="adminStats"></div>
+
+    <div class="atabs">
+      <button class="atab on" onclick="switchTab('products',this)">🌺 Productos</button>
+      <button class="atab" onclick="switchTab('zones',this)">📍 Zonas</button>
+      <button class="atab" onclick="switchTab('appear',this)">🎨 Apariencia</button>
+      <button class="atab" onclick="switchTab('info',this)">🏪 Mi Negocio</button>
+      <button class="atab" onclick="switchTab('security',this)">🔐 Seguridad</button>
+    </div>
+
+    <!-- TAB: PRODUCTS -->
+    <div id="tab-products" class="atab-content on">
+      <div class="asec">
+        <div class="asec-title" id="formLabel">+ Agregar Producto</div>
+        <div class="aform" id="aform">
+          <input type="hidden" id="editId">
+          <div class="afgrid">
+            <div class="afgroup affull">
+              <label class="aflbl">Nombre del arreglo *</label>
+              <input class="afinput" id="afName" type="text" placeholder="Ej: Ramo Princesa">
+            </div>
+            <div class="afgroup">
+              <label class="aflbl">Precio RD$ *</label>
+              <input class="afinput" id="afPrice" type="number" placeholder="3800" min="0">
+            </div>
+            <div class="afgroup">
+              <label class="aflbl">Categoría *</label>
+              <select class="afselect" id="afCat">
+                <option value="">Seleccionar...</option>
+                <option>Pequeños Detalles</option>
+                <option>Los Más Vendidos</option>
+                <option>Detalles Especiales</option>
+                <option>Colección Premium</option>
+                <option>Colección Exclusiva</option>
+                <option>Grandes Gestos</option>
+                <option>Desayunos</option>
+              </select>
+            </div>
+            <div class="afgroup affull">
+              <label class="aflbl">Descripción</label>
+              <textarea class="aftarea" id="afDesc" placeholder="Descripción breve del arreglo..."></textarea>
+            </div>
+            <div class="afgroup">
+              <label class="aflbl">Etiqueta (opcional)</label>
+              <input class="afinput" id="afBadge" type="text" placeholder="Ej: ⭐ Más Vendido">
+            </div>
+            <div class="afgroup">
+              <label class="aflbl">URL de foto (o sube imagen abajo)</label>
+              <input class="afinput" id="afImgUrl" type="text" placeholder="https://...">
+            </div>
+            <div class="afgroup affull">
+              <label class="aflbl">Subir foto desde tu PC (recomendado)</label>
+              <div class="imgprev" id="imgPrev">
+                <span id="imgPlaceholder">📷 Haz clic para elegir foto</span>
+                <img id="imgPreviewEl" src="" alt="" style="display:none">
+                <input type="file" id="afImgFile" accept="image/*" onchange="handleImg(this)">
+              </div>
+            </div>
+          </div>
+          <div class="afactions">
+            <button class="btn-add-p" id="afSubmitBtn" onclick="saveProduct()">+ Agregar</button>
+            <button class="btn-cancel-p" onclick="cancelEdit()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="asec">
+        <div class="asec-title">Productos del catálogo (<span id="prodCount">0</span>)</div>
+        <div class="aplist" id="adminProdList"></div>
+      </div>
+    </div>
+
+    <!-- TAB: ZONES -->
+    <div id="tab-zones" class="atab-content">
+      <div class="asec">
+        <div class="asec-title">Zonas de entrega y precios</div>
+        <div class="zonelist" id="zoneList"></div>
+        <div class="addzone">
+          <input class="afinput" id="znName" type="text" placeholder="Nombre de zona (Ej: Constanza Centro)">
+          <input class="afinput" id="znPrice" type="text" placeholder="Precio (Ej: RD$200 o Gratis)">
+          <button class="btn-addz" onclick="addZone()">+ Agregar</button>
+        </div>
+        <p style="color:rgba(255,255,255,.3);font-size:11.5px;margin-top:10px;font-style:italic">
+          Estos aparecen como opciones cuando el cliente elige entrega.
+        </p>
+      </div>
+    </div>
+
+    <!-- TAB: APARIENCIA -->
+    <div id="tab-appear" class="atab-content">
+
+      <!-- Paletas predefinidas -->
+      <div class="asec">
+        <div class="asec-title">🎨 Paletas de Color</div>
+        <div class="palettes" id="paletteList"></div>
+      </div>
+
+      <hr class="adivider">
+
+      <!-- Colores personalizados -->
+      <div class="asec">
+        <div class="asec-title">🖌 Colores Personalizados</div>
+        <div class="appear-card">
+          <div class="cpickers">
+            <div class="cpick-row">
+              <span class="cpick-label">Color Principal (botones, badges, precios)</span>
+              <div class="cpick-right">
+                <div class="cpick-swatch" id="swPrimary" style="background:var(--primary)">
+                  <input type="color" id="cpPrimary" value="#C1415A" oninput="liveColor('primary',this.value)">
+                </div>
+                <input class="cpick-hex afinput" id="hexPrimary" value="#C1415A" maxlength="7" oninput="hexInput('primary',this.value)">
+              </div>
+            </div>
+            <div class="cpick-row">
+              <span class="cpick-label">Color Acento (categorías, detalles dorados)</span>
+              <div class="cpick-right">
+                <div class="cpick-swatch" id="swAccent" style="background:var(--accent)">
+                  <input type="color" id="cpAccent" value="#C9875A" oninput="liveColor('accent',this.value)">
+                </div>
+                <input class="cpick-hex afinput" id="hexAccent" value="#C9875A" maxlength="7" oninput="hexInput('accent',this.value)">
+              </div>
+            </div>
+            <div class="cpick-row">
+              <span class="cpick-label">Fondo del Catálogo</span>
+              <div class="cpick-right">
+                <div class="cpick-swatch" id="swBg" style="background:var(--bg)">
+                  <input type="color" id="cpBg" value="#F9F4EF" oninput="liveColor('bg',this.value)">
+                </div>
+                <input class="cpick-hex afinput" id="hexBg" value="#F9F4EF" maxlength="7" oninput="hexInput('bg',this.value)">
+              </div>
+            </div>
+            <div class="cpick-row">
+              <span class="cpick-label">Color Texto Principal</span>
+              <div class="cpick-right">
+                <div class="cpick-swatch" id="swDark" style="background:var(--dark)">
+                  <input type="color" id="cpDark" value="#2C1F1F" oninput="liveColor('dark',this.value)">
+                </div>
+                <input class="cpick-hex afinput" id="hexDark" value="#2C1F1F" maxlength="7" oninput="hexInput('dark',this.value)">
+              </div>
+            </div>
+          </div>
+          <button class="btn-add-p" style="margin-top:14px;width:100%" onclick="saveAppearance()">💾 Guardar Colores</button>
+        </div>
+      </div>
+
+      <hr class="adivider">
+
+      <!-- Tipografía -->
+      <div class="asec">
+        <div class="asec-title">✍ Tipografía</div>
+        <div class="appear-card">
+          <h4>Fuente de Títulos</h4>
+          <div class="font-opts" id="fontDisplayOpts"></div>
+          <hr class="adivider">
+          <h4 style="margin-top:4px">Fuente de Texto</h4>
+          <div class="font-opts" id="fontBodyOpts"></div>
+          <button class="btn-add-p" style="margin-top:14px;width:100%" onclick="saveAppearance()">💾 Guardar Tipografía</button>
+        </div>
+      </div>
+
+      <hr class="adivider">
+
+      <!-- Banner / Hero -->
+      <div class="asec">
+        <div class="asec-title">🖼 Banner Principal</div>
+        <div class="appear-card">
+          <div class="toggle-row">
+            <span class="toggle-label">Mostrar banner en el catálogo</span>
+            <label class="toggle"><input type="checkbox" id="togBanner" checked onchange="saveAppearance()"><span class="toggle-slider"></span></label>
+          </div>
+          <div style="margin-top:12px">
+            <label class="aflbl">Imagen del banner (URL)</label>
+            <input class="afinput" style="margin-top:4px" id="bannerUrl" type="text" placeholder="https://... (deja vacío para la imagen por defecto)">
+          </div>
+          <div style="margin-top:10px">
+            <label class="aflbl">O sube una foto desde tu PC</label>
+            <div class="banner-img-preview" id="bannerPreview">
+              <span id="bannerPreviewPlaceholder">📷 Clic para elegir foto de banner</span>
+              <img id="bannerPreviewImg" src="" alt="" style="display:none">
+              <input type="file" accept="image/*" onchange="handleBannerImg(this)">
+            </div>
+          </div>
+          <div style="margin-top:10px">
+            <label class="aflbl">Subtítulo del banner (pill)</label>
+            <input class="afinput" style="margin-top:4px" id="bannerPill" type="text" placeholder="🌸 Catálogo Exclusivo · Madres 2026">
+          </div>
+          <div style="margin-top:10px">
+            <label class="aflbl">Título grande (usa ** para cursiva)</label>
+            <input class="afinput" style="margin-top:4px" id="bannerTitle" type="text" placeholder="Para **Mamá**, con amor">
+          </div>
+          <div style="margin-top:10px">
+            <label class="aflbl">Descripción</label>
+            <textarea class="aftarea" style="margin-top:4px" id="bannerDesc" placeholder="Pedidos limitados · Reserva con anticipación"></textarea>
+          </div>
+          <button class="btn-add-p" style="margin-top:14px;width:100%" onclick="saveBanner()">💾 Guardar Banner</button>
+        </div>
+      </div>
+
+      <hr class="adivider">
+
+      <!-- Logo -->
+      <div class="asec">
+        <div class="asec-title">🏷 Logo del Negocio</div>
+        <div class="appear-card">
+          <div style="margin-bottom:10px">
+            <label class="aflbl">Imagen del logo (opcional)</label>
+            <div class="logo-upload-area" id="logoUploadArea" style="margin-top:6px">
+              <span id="logoUploadPlaceholder">📷 Subir imagen de logo</span>
+              <img id="logoUploadPreview" src="" alt="" style="display:none">
+              <input type="file" accept="image/*" onchange="handleLogoImg(this)">
+            </div>
+            <p style="color:rgba(255,255,255,.25);font-size:10.5px;margin-top:5px;font-style:italic">Aparecerá como círculo junto al nombre en el encabezado</p>
+          </div>
+          <div style="margin-top:10px">
+            <label class="aflbl">Tagline (texto pequeño arriba del nombre)</label>
+            <input class="afinput" style="margin-top:4px" id="logoTaglineInput" type="text" placeholder="Hermanas">
+          </div>
+          <div style="margin-top:10px">
+            <label class="aflbl">Nombre del negocio</label>
+            <input class="afinput" style="margin-top:4px" id="logoNameInput" type="text" placeholder="DecoFlor">
+          </div>
+          <button class="btn-add-p" style="margin-top:14px;width:100%" onclick="saveLogo()">💾 Guardar Logo</button>
+        </div>
+      </div>
+
+    </div><!-- end tab-appear -->
+
+    <!-- TAB: MI NEGOCIO -->
+    <div id="tab-info" class="atab-content">
+      <div class="asec">
+        <div class="asec-title">📞 Contacto y Redes Sociales</div>
+        <div class="appear-card">
+          <div class="social-grid">
+            <div>
+              <label class="aflbl">Número de WhatsApp</label>
+              <input class="afinput" style="margin-top:4px" id="infoPhone" type="text" placeholder="18293802507">
+              <p style="color:rgba(255,255,255,.22);font-size:10px;margin-top:4px">Solo números, sin + ni espacios</p>
+            </div>
+            <div>
+              <label class="aflbl">Instagram (solo usuario)</label>
+              <input class="afinput" style="margin-top:4px" id="infoInsta" type="text" placeholder="hermanasdecoflor">
+            </div>
+            <div>
+              <label class="aflbl">Facebook (usuario o URL)</label>
+              <input class="afinput" style="margin-top:4px" id="infoFb" type="text" placeholder="hermanasdecoflor">
+            </div>
+            <div>
+              <label class="aflbl">TikTok (usuario)</label>
+              <input class="afinput" style="margin-top:4px" id="infoTiktok" type="text" placeholder="@hermanasdecoflor">
+            </div>
+          </div>
+          <hr class="adivider">
+          <div>
+            <label class="aflbl">Título de la página (aparece en el navegador)</label>
+            <input class="afinput" style="margin-top:4px" id="infoPageTitle" type="text" placeholder="Catálogo Madres 2026 · DecoFlor">
+          </div>
+          <div style="margin-top:10px">
+            <label class="aflbl">Texto en pie de página (copyright)</label>
+            <input class="afinput" style="margin-top:4px" id="infoCopy" type="text" placeholder="© 2026 Hermanas DecoFlor · Todos los derechos reservados">
+          </div>
+          <hr class="adivider">
+          <div class="toggle-row">
+            <span class="toggle-label">Mostrar botón flotante de WhatsApp</span>
+            <label class="toggle"><input type="checkbox" id="togFab" checked onchange="saveInfo()"><span class="toggle-slider"></span></label>
+          </div>
+          <button class="btn-add-p" style="margin-top:14px;width:100%" onclick="saveInfo()">💾 Guardar Información</button>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">📝 Mensaje de Pedido (WhatsApp)</div>
+        <div class="appear-card">
+          <p style="color:rgba(255,255,255,.35);font-size:11.5px;margin-bottom:12px;line-height:1.55">Personaliza el encabezado del mensaje que se envía por WhatsApp cuando alguien hace un pedido.</p>
+          <div>
+            <label class="aflbl">Encabezado del mensaje</label>
+            <input class="afinput" style="margin-top:4px" id="infoWaHeader" type="text" placeholder="🌸 *PEDIDO — CATÁLOGO MADRES 2026*">
+          </div>
+          <div style="margin-top:10px">
+            <label class="aflbl">Firma al final del mensaje</label>
+            <input class="afinput" style="margin-top:4px" id="infoWaFooter" type="text" placeholder="✅ Quedo pendiente de confirmación.">
+          </div>
+          <button class="btn-add-p" style="margin-top:14px;width:100%" onclick="saveInfo()">💾 Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: SEGURIDAD -->
+    <div id="tab-security" class="atab-content">
+      <div class="asec">
+        <div class="asec-title">🔑 Cambiar Contraseña</div>
+        <div class="appear-card">
+          <p style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:14px;line-height:1.5">Cambia la contraseña de acceso al panel de administración. La nueva contraseña se guardará en este dispositivo.</p>
+          <div class="pw-change-form">
+            <div>
+              <label class="aflbl">Contraseña actual</label>
+              <input class="afinput" style="margin-top:4px" id="pwOld" type="password" placeholder="••••••••">
+            </div>
+            <div>
+              <label class="aflbl">Nueva contraseña</label>
+              <input class="afinput" style="margin-top:4px" id="pwNew" type="password" placeholder="••••••••">
+            </div>
+            <div>
+              <label class="aflbl">Confirmar nueva contraseña</label>
+              <input class="afinput" style="margin-top:4px" id="pwConfirm" type="password" placeholder="••••••••">
+            </div>
+            <button class="btn-add-p" style="margin-top:4px;width:100%" onclick="changePassword()">🔐 Cambiar Contraseña</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="asec">
+        <div class="asec-title">🔄 Restablecer Datos</div>
+        <div class="appear-card">
+          <p style="color:rgba(255,255,255,.35);font-size:12px;margin-bottom:14px;line-height:1.5">Si algo se ve mal, puedes restablecer los productos y zonas a los valores originales. La apariencia y configuración del negocio se mantendrá.</p>
+          <button onclick="resetData()" style="background:rgba(193,65,90,.18);color:#e08096;padding:10px 22px;border-radius:50px;font-size:12.5px;font-weight:600;border:1px solid rgba(193,65,90,.2)">⚠️ Restablecer Productos y Zonas</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end awrap -->
+</div><!-- end #aov -->
+
+<!-- PASSWORD GATE -->
+<div id="pwg">
+  <div class="pwbox">
+    <div class="pwico">🔐</div>
+    <div class="pwtitle">Panel Administrador</div>
+    <div class="pwsub">Ingresa la contraseña para continuar</div>
+    <input class="pwinput" id="pwInput" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPw()">
+    <button class="pwbtn" onclick="checkPw()">Entrar</button>
+    <div class="pwerr" id="pwErr"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+// ============================================================
+//  CONSTANTS & DEFAULT CONFIG
+// ============================================================
+const LS_KEY       = "decoflor_data_v3";
+const LS_APPEAR    = "decoflor_appear_v3";
+const LS_INFO      = "decoflor_info_v3";
+const LS_PASS      = "decoflor_pass_v3";
+const DEFAULT_PASS = "123456";
+
+const CATS_ORDER = ["Pequeños Detalles","Los Más Vendidos","Detalles Especiales","Colección Premium","Colección Exclusiva","Grandes Gestos","Desayunos"];
+
+// ============================================================
+//  COLOR PALETTES
+// ============================================================
+const PALETTES = [
+  {
+    id:"negro-dorado",label:"Negro & Dorado",
+    primary:"#B8952A",accent:"#D4AF37",bg:"#0D0D0D",dark:"#F5F0E8",mid:"#C4A96C",
+    swatches:["#0D0D0D","#B8952A","#D4AF37","#F5F0E8"]
+  },
+  {
+    id:"rosa-clásico",label:"Rosa Clásico (Original)",
+    primary:"#C1415A",accent:"#C9875A",bg:"#F9F4EF",dark:"#2C1F1F",mid:"#7A5C5C",
+    swatches:["#C1415A","#C9875A","#F9F4EF","#2C1F1F"]
+  },
+  {
+    id:"verde-esmeralda",label:"Verde Esmeralda",
+    primary:"#2D6A4F",accent:"#74C69D",bg:"#F0F7F4",dark:"#1B2F24",mid:"#52796F",
+    swatches:["#2D6A4F","#74C69D","#F0F7F4","#1B2F24"]
+  },
+  {
+    id:"lavanda-dorado",label:"Lavanda & Dorado",
+    primary:"#6B4F8C",accent:"#C9A84C",bg:"#F8F4FF",dark:"#2A1F35",mid:"#8E7AAA",
+    swatches:["#6B4F8C","#C9A84C","#F8F4FF","#2A1F35"]
+  },
+  {
+    id:"azul-marino",label:"Azul Marino Elegante",
+    primary:"#1B3A5C",accent:"#A8865C",bg:"#F2F6FA",dark:"#0D1F30",mid:"#4A6070",
+    swatches:["#1B3A5C","#A8865C","#F2F6FA","#0D1F30"]
+  },
+  {
+    id:"coral-nude",label:"Coral & Nude",
+    primary:"#D4735A",accent:"#C4A882",bg:"#FBF5F0",dark:"#3D2218",mid:"#9A7060",
+    swatches:["#D4735A","#C4A882","#FBF5F0","#3D2218"]
+  },
+  {
+    id:"negro-fucsia",label:"Negro & Fucsia",
+    primary:"#E91E8C",accent:"#FF69B4",bg:"#0A0A0A",dark:"#F5F5F5",mid:"#CC8AB0",
+    swatches:["#0A0A0A","#E91E8C","#FF69B4","#F5F5F5"]
+  },
+  {
+    id:"tierra-cobre",label:"Tierra & Cobre",
+    primary:"#8B4513",accent:"#CD7F32",bg:"#FFF8F0",dark:"#2C1810",mid:"#8B6555",
+    swatches:["#8B4513","#CD7F32","#FFF8F0","#2C1810"]
+  }
+];
+
+const DISPLAY_FONTS = [
+  {id:"cormorant",label:"Cormorant Garamond",css:"'Cormorant Garamond',serif",preview:"Elegante & Clásica"},
+  {id:"playfair",label:"Playfair Display",css:"'Playfair Display',serif",preview:"Sofisticada"},
+  {id:"jost",label:"Jost",css:"'Jost',sans-serif",preview:"Moderna & Limpia"},
+];
+const BODY_FONTS = [
+  {id:"jost",label:"Jost",css:"'Jost',sans-serif",preview:"Ligera & Moderna"},
+  {id:"montserrat",label:"Montserrat",css:"'Montserrat',sans-serif",preview:"Clásica Sans"},
+  {id:"raleway",label:"Raleway",css:"'Raleway',sans-serif",preview:"Elegante Sans"},
+];
+
+// ============================================================
+//  DEFAULT DATA
+// ============================================================
+const DEFAULT_PRODUCTS = [
+  {id:"cafetera-mama",name:"Cafetera Para Mamá",desc:"Rosas, lilium, flores de relleno y follajes frescos en hermosa cafetera decorativa.",price:2500,cat:"Pequeños Detalles",img:"https://images.unsplash.com/photo-1555212697-194d092e3b8f?q=80&w=700&fit=crop",badge:""},
+  {id:"elegancia-viva",name:"Elegancia Viva Que Perdura",desc:"Nuestras orquídeas son admiración que sigue floreciendo y llenando de belleza cualquier espacio.",price:2200,cat:"Pequeños Detalles",img:"https://images.unsplash.com/photo-1612530309988-3e71b26bf6cb?q=80&w=700&fit=crop",badge:""},
+  {id:"ramo-princesa",name:"Ramo Princesa",desc:"\"Princesa\" enamora por su delicada combinación de rosas frescas, follajes premium y su elegante presentación.",price:3800,cat:"Los Más Vendidos",img:"https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=700&fit=crop",badge:"⭐ Más Vendido"},
+  {id:"ramo-reina",name:"Ramo Reina",desc:"Con hermosas rosas frescas y una presentación elegante que transmite amor y admiración.",price:6950,cat:"Los Más Vendidos",img:"https://images.unsplash.com/photo-1508610048659-a06b669e3321?q=80&w=700&fit=crop",badge:"❤ Favorito"},
+  {id:"box-luxury",name:"Box Luxury",desc:"Hermosa composición con rosas frescas, orquídea, vino y delicados complementos decorativos.",price:6500,cat:"Los Más Vendidos",img:"https://images.unsplash.com/photo-1596438459194-f275f413d6ff?q=80&w=700&fit=crop",badge:""},
+  {id:"garden-pink",name:"Garden Pink",desc:"Hermosas rosas rosadas y lilium frescos en fina base decorativa premium. Perfecto para consentir a Mamá.",price:6250,cat:"Los Más Vendidos",img:"https://images.unsplash.com/photo-1559834557-80bae0910df4?q=80&w=700&fit=crop",badge:""},
+  {id:"jardin-rosas",name:"Jardín De Rosas Premium",desc:"Elegante arreglo de rosas frescas en fina base de madera, diseñado para sorprender a Mamá.",price:8500,cat:"Detalles Especiales",img:"https://images.unsplash.com/photo-1606041008023-472dfb5e530f?q=80&w=700&fit=crop",badge:""},
+  {id:"encanto-lilium",name:"Encanto Rosa & Lilium",desc:"Una composición espectacular de rosas y liliums frescos, perfecta para expresar admiración, amor y gratitud.",price:9850,cat:"Detalles Especiales",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=700&fit=crop",badge:""},
+  {id:"dulce-encanto",name:"Dulce Encanto",desc:"Una combinación encantadora de rosas frescas en una presentación fina y delicada.",price:8850,cat:"Colección Premium",img:"https://images.unsplash.com/photo-1490750967868-88df5691cc88?q=80&w=700&fit=crop",badge:""},
+  {id:"elegancia-flor",name:"Elegancia En Flor",desc:"Un arreglo sofisticado en hermoso florero decorativo con delicadas rosas frescas y follajes seleccionados.",price:8850,cat:"Colección Premium",img:"https://images.unsplash.com/photo-1487530811015-780780169c1a?q=80&w=700&fit=crop",badge:""},
+  {id:"majestad",name:"Majestad Suprema",desc:"Una composición impactante de rosas premium en presentación de lujo.",price:11550,cat:"Colección Premium",img:"https://images.unsplash.com/photo-1566739566-8e2e6c461e46?q=80&w=700&fit=crop",badge:""},
+  {id:"arte-floral",name:"Arte Floral Exclusivo",desc:"Una creación artística que fusiona flores premium, texturas y diseño sofisticado en una pieza única.",price:14500,cat:"Colección Premium",img:"https://images.unsplash.com/photo-1548532928-b34e3be62fc6?q=80&w=700&fit=crop",badge:""},
+  {id:"pureza-inf",name:"Pureza Infinita",desc:"Una elegante composición de orquídeas premium en presentación sofisticada y atemporal.",price:14250,cat:"Colección Exclusiva",img:"https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=700&fit=crop",badge:""},
+  {id:"jardin-imp",name:"Jardín Imperial",desc:"Una creación floral majestuosa con exquisitas orquídeas premium.",price:16500,cat:"Colección Exclusiva",img:"https://images.unsplash.com/photo-1531970227116-4e07be0ded21?q=80&w=700&fit=crop",badge:""},
+  {id:"lugar-seg",name:"Mi Lugar Seguro",desc:"Una creación extraordinaria para recordarle a Mamá que su amor siempre será nuestro lugar seguro.",price:17500,cat:"Colección Exclusiva",img:"https://images.unsplash.com/photo-1525385133512-2f3bdd039054?q=80&w=700&fit=crop",badge:""},
+  {id:"jardin-ens",name:"Jardín De Ensueño",desc:"Composición floral espectacular que combina rosas, orquídeas y delicados detalles en presentación artística.",price:17500,cat:"Colección Exclusiva",img:"https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=700&fit=crop",badge:""},
+  {id:"ramo-waooo",name:"Ramo Waooo",desc:"Impresionante ramo de 75 rosas premium. Un espectáculo floral para sorprender a Mamá.",price:16500,cat:"Grandes Gestos",img:"https://images.unsplash.com/photo-1548460052-f29bfc4aa1dc?q=80&w=700&fit=crop",badge:"🌹 75 Rosas"},
+  {id:"waooo-sup",name:"Ramo Waooo Supremo",desc:"Una creación extraordinaria de 150 rosas premium para una experiencia impactante.",price:29500,cat:"Grandes Gestos",img:"https://images.unsplash.com/photo-1572635148818-ef6fd45eb995?q=80&w=700&fit=crop",badge:"👑 150 Rosas"},
+  {id:"reina-eterna",name:"Reina Eterna",desc:"Una creación majestuosa de 100 rosas premium, diseñada para sorprender.",price:26500,cat:"Grandes Gestos",img:"https://images.unsplash.com/photo-1532636875304-0fbe6dfbcb09?q=80&w=700&fit=crop",badge:"💫 100 Rosas"},
+  {id:"imperio",name:"Imperio De Amor",desc:"La máxima expresión del amor. 200 rosas premium para impactar y emocionar.",price:39500,cat:"Grandes Gestos",img:"https://images.unsplash.com/photo-1501973931234-57b48156a4bc?q=80&w=700&fit=crop",badge:"🏆 200 Rosas"},
+  {id:"des-deluxe",name:"Desayuno Deluxe Gourmet",desc:"En elegante caja de lujo con acetato transparente. Tabla gourmet de embutidos y acompañamientos.",price:6800,cat:"Desayunos",img:"https://images.unsplash.com/photo-1476224203421-9ac39bcb3df0?q=80&w=700&fit=crop",badge:""},
+  {id:"des-prem",name:"Desayuno Premium Signature",desc:"Bandeja premium: croissants artesanales, rollitos, embutidos, quesos, frutas frescas, jugo y complementos.",price:7550,cat:"Desayunos",img:"https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=700&fit=crop",badge:"🥐 Signature"}
+];
+
+const DEFAULT_ZONES = [
+  {name:"Recoger en tienda",price:"Gratis"},
+  {name:"Constanza Centro",price:"RD$150"},
+  {name:"Los Dajaos",price:"RD$200"},
+  {name:"La Cienaga",price:"RD$250"}
+];
+
+const DEFAULT_APPEAR = {
+  palette:"rosa-clásico",
+  primary:"#C1415A", accent:"#C9875A", bg:"#F9F4EF", dark:"#2C1F1F", mid:"#7A5C5C",
+  fontDisplay:"cormorant", fontBody:"jost",
+  bannerVisible:true,
+  bannerUrl:"",
+  bannerB64:"",
+  bannerPill:"🌸 Catálogo Exclusivo · Madres 2026",
+  bannerTitle:"Para **Mamá**,\ncon amor",
+  bannerDesc:"Pedidos limitados · Reserva con anticipación\nEntrega el Día de las Madres",
+  logoUrl:"",
+  logoTagline:"Hermanas",
+  logoName:"DecoFlor"
+};
+
+const DEFAULT_INFO = {
+  phone:"18293802507",
+  insta:"hermanasdecoflor",
+  fb:"",
+  tiktok:"",
+  pageTitle:"Catálogo Madres 2026 · Hermanas DecoFlor",
+  copy:"© 2026 Hermanas DecoFlor · Todos los derechos reservados",
+  fabVisible:true,
+  waHeader:"🌸 *PEDIDO — CATÁLOGO MADRES 2026*",
+  waFooter:"✅ Quedo pendiente de confirmación."
+};
+
+// ============================================================
+//  STATE
+// ============================================================
+function loadData(){
+  try{
+    const raw=localStorage.getItem(LS_KEY);
+    if(raw){const d=JSON.parse(raw);return{products:d.products||JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)),zones:d.zones||JSON.parse(JSON.stringify(DEFAULT_ZONES))};}
+  }catch(e){}
+  return{products:JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)),zones:JSON.parse(JSON.stringify(DEFAULT_ZONES))};
+}
+function saveData(){try{localStorage.setItem(LS_KEY,JSON.stringify({products:PRODUCTS,zones:ZONES}));}catch(e){}}
+
+function loadAppear(){
+  try{const r=localStorage.getItem(LS_APPEAR);if(r)return Object.assign({},DEFAULT_APPEAR,JSON.parse(r));}catch(e){}
+  return Object.assign({},DEFAULT_APPEAR);
+}
+function saveAppearLS(){try{localStorage.setItem(LS_APPEAR,JSON.stringify(APPEAR));}catch(e){}}
+
+function loadInfo(){
+  try{const r=localStorage.getItem(LS_INFO);if(r)return Object.assign({},DEFAULT_INFO,JSON.parse(r));}catch(e){}
+  return Object.assign({},DEFAULT_INFO);
+}
+function saveInfoLS(){try{localStorage.setItem(LS_INFO,JSON.stringify(INFO));}catch(e){}}
+
+function getPass(){try{return localStorage.getItem(LS_PASS)||DEFAULT_PASS;}catch(e){return DEFAULT_PASS;}}
+function savePass(p){try{localStorage.setItem(LS_PASS,p);}catch(e){}}
+
+let {products:PRODUCTS,zones:ZONES}=loadData();
+let APPEAR=loadAppear();
+let INFO=loadInfo();
+let ADMIN_PASS=getPass();
+
+let activeCat="Todos";
+let selectedProd=null;
+let editingId=null;
+let pendingImgBase64=null;
+let pendingBannerB64=null;
+let pendingLogoB64=null;
+let logoClicks=0,logoTimer=null;
+
+// ============================================================
+//  APPLY APPEARANCE
+// ============================================================
+function applyAppearance(){
+  const r=document.documentElement.style;
+  r.setProperty("--primary",APPEAR.primary);
+  r.setProperty("--primary2",shadeColor(APPEAR.primary,-20));
+  r.setProperty("--primarylight",lightColor(APPEAR.primary,90));
+  r.setProperty("--accent",APPEAR.accent);
+  r.setProperty("--accent2",shadeColor(APPEAR.accent,-20));
+  r.setProperty("--bg",APPEAR.bg);
+  r.setProperty("--dark",APPEAR.dark);
+  r.setProperty("--mid",midColor(APPEAR.primary,APPEAR.accent));
+  r.setProperty("--border","rgba("+hexToRgb(APPEAR.accent)+",.2)");
+  r.setProperty("--shadow","0 10px 40px rgba("+hexToRgb(APPEAR.dark)+",.1)");
+
+  const fd=DISPLAY_FONTS.find(f=>f.id===APPEAR.fontDisplay)||DISPLAY_FONTS[0];
+  const fb=BODY_FONTS.find(f=>f.id===APPEAR.fontBody)||BODY_FONTS[0];
+  r.setProperty("--font-display",fd.css);
+  r.setProperty("--font-body",fb.css);
+  document.body.style.fontFamily=fb.css;
+
+  // Banner
+  const hero=document.getElementById("heroBanner");
+  const heroBg=document.getElementById("heroBg");
+  if(!APPEAR.bannerVisible){hero.setAttribute("data-hidden","true");}
+  else{hero.removeAttribute("data-hidden");}
+
+  const bImg=APPEAR.bannerB64||APPEAR.bannerUrl||"https://images.unsplash.com/photo-1490750967868-88df5691cc88?q=85&w=900&fit=crop";
+  heroBg.style.backgroundImage="url('"+bImg+"')";
+
+  document.getElementById("heroPill").textContent=APPEAR.bannerPill||DEFAULT_APPEAR.bannerPill;
+
+  const rawTitle=APPEAR.bannerTitle||DEFAULT_APPEAR.bannerTitle;
+  const titleLines=rawTitle.split("\n");
+  const heroTitleEl=document.getElementById("heroTitle");
+  heroTitleEl.innerHTML=titleLines.map(function(line){
+    return line.replace(/\*\*(.+?)\*\*/g,'<em>$1</em>');
+  }).join("<br>");
+
+  const rawDesc=APPEAR.bannerDesc||DEFAULT_APPEAR.bannerDesc;
+  document.getElementById("heroSub").innerHTML=rawDesc.replace(/\n/g,"<br>");
+
+  // Logo
+  const logoTagline=document.getElementById("logoTagline");
+  const logoName=document.getElementById("logoName");
+  const logoImgWrap=document.getElementById("logoImgWrap");
+  const logoImgEl=document.getElementById("logoImgEl");
+  logoTagline.textContent=APPEAR.logoTagline||"Hermanas";
+  logoName.textContent=APPEAR.logoName||"DecoFlor";
+  if(APPEAR.logoUrl){
+    logoImgEl.src=APPEAR.logoUrl;
+    logoImgWrap.classList.add("has-img");
+  }else{logoImgWrap.classList.remove("has-img");}
+
+  // Also update header bg based on palette brightness
+  updateHeaderBg();
+}
+
+function updateHeaderBg(){
+  const hdr=document.querySelector(".hdr");
+  const catbar=document.querySelector(".catbar");
+  const rgb=hexToRgb(APPEAR.bg);
+  hdr.style.background="rgba("+rgb+",.94)";
+  catbar.style.background="rgba("+rgb+",.95)";
+}
+
+// ============================================================
+//  COLOR HELPERS
+// ============================================================
+function hexToRgb(hex){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return r+","+g+","+b;
+}
+function shadeColor(hex,pct){
+  let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  r=Math.max(0,Math.min(255,r+Math.floor(r*pct/100)));
+  g=Math.max(0,Math.min(255,g+Math.floor(g*pct/100)));
+  b=Math.max(0,Math.min(255,b+Math.floor(b*pct/100)));
+  return"#"+r.toString(16).padStart(2,"0")+g.toString(16).padStart(2,"0")+b.toString(16).padStart(2,"0");
+}
+function lightColor(hex,l){
+  let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  r=Math.round(r+(255-r)*l/100);g=Math.round(g+(255-g)*l/100);b=Math.round(b+(255-b)*l/100);
+  return"#"+r.toString(16).padStart(2,"0")+g.toString(16).padStart(2,"0")+b.toString(16).padStart(2,"0");
+}
+function midColor(c1,c2){
+  const r1=parseInt(c1.slice(1,3),16),g1=parseInt(c1.slice(3,5),16),b1=parseInt(c1.slice(5,7),16);
+  const r2=parseInt(c2.slice(1,3),16),g2=parseInt(c2.slice(3,5),16),b2=parseInt(c2.slice(5,7),16);
+  const r=Math.round((r1+r2)/2+30),g=Math.round((g1+g2)/2+20),b=Math.round((b1+b2)/2+20);
+  return"#"+Math.min(255,r).toString(16).padStart(2,"0")+Math.min(255,g).toString(16).padStart(2,"0")+Math.min(255,b).toString(16).padStart(2,"0");
+}
+
+// ============================================================
+//  APPLY INFO
+// ============================================================
+function applyInfo(){
+  document.title=INFO.pageTitle||DEFAULT_INFO.pageTitle;
+  document.getElementById("pageTitle").textContent=INFO.pageTitle||DEFAULT_INFO.pageTitle;
+
+  const ftrLogo=document.getElementById("ftrLogo");
+  const ftrSub=document.getElementById("ftrSub");
+  const ftrCopy=document.getElementById("ftrCopy");
+  if(ftrLogo) ftrLogo.textContent=APPEAR.logoName||"DecoFlor";
+  if(ftrSub) ftrSub.textContent=APPEAR.logoTagline+" · Tú Floristería";
+  if(ftrCopy) ftrCopy.textContent=INFO.copy||DEFAULT_INFO.copy;
+
+  const ftrInsta=document.getElementById("ftrInsta");
+  if(ftrInsta){
+    if(INFO.insta){ftrInsta.href="https://instagram.com/"+INFO.insta;ftrInsta.textContent="📸 @"+INFO.insta;ftrInsta.style.display="";}
+    else{ftrInsta.style.display="none";}
+  }
+
+  const fab=document.getElementById("fabWa");
+  if(fab) fab.style.display=INFO.fabVisible!==false?"flex":"none";
+
+  setAllWaLinks();
+}
+
+// ============================================================
+//  WA LINKS
+// ============================================================
+function waLink(msg){return"https://wa.me/"+(INFO.phone||"18293802507")+(msg?"?text="+encodeURIComponent(msg):"");}
+function setAllWaLinks(){
+  const url=waLink("Hola, vi el catálogo y quiero hacer una consulta. 🌸");
+  ["hdrWa","heroWa","fabWa","ftWa"].forEach(function(id){
+    const el=document.getElementById(id);if(el){el.href=url;el.target="_blank";}
+  });
+  const waNumEl=document.getElementById("hdrWaNum");
+  if(waNumEl){
+    const num=INFO.phone||"18293802507";
+    waNumEl.textContent=num.replace(/(\d{1})(\d{3})(\d{3})(\d{4})/,"$1 ($2) $3-$4").replace("1 ","");
+  }
+  const ftrPhone=document.getElementById("ftrPhone");
+  if(ftrPhone) ftrPhone.textContent=INFO.phone||"18293802507";
+}
+
+// ============================================================
+//  FORMAT
+// ============================================================
+function fmt(n){return"RD$ "+Number(n).toLocaleString("es-DO");}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+
+// ============================================================
+//  BUILD TABS (categories)
+// ============================================================
+function buildTabs(){
+  const cs=document.getElementById("catScroll");
+  cs.innerHTML="";
+  ["Todos"].concat(CATS_ORDER).forEach(function(cat){
+    const btn=document.createElement("button");
+    btn.className="catbtn"+(cat===activeCat?" on":"");
+    btn.textContent=cat;
+    btn.setAttribute("data-cat",cat);
+    btn.onclick=function(){activeCat=cat;renderFeed();buildTabs();};
+    cs.appendChild(btn);
+  });
+}
+
+// ============================================================
+//  BUILD FEED
+// ============================================================
+function renderFeed(){
+  const feed=document.getElementById("feed");
+  feed.innerHTML="";
+  const list=activeCat==="Todos"?PRODUCTS:PRODUCTS.filter(function(p){return p.cat===activeCat;});
+  if(!list.length){
+    feed.innerHTML='<div class="empty"><div class="empty-ico">🌸</div><p>No hay productos en esta categoría.</p></div>';
+    return;
+  }
+  if(activeCat==="Todos"){
+    const groups={};
+    CATS_ORDER.forEach(function(c){groups[c]=[];});
+    list.forEach(function(p){if(!groups[p.cat])groups[p.cat]=[];groups[p.cat].push(p);});
+    CATS_ORDER.forEach(function(cat){
+      if(!groups[cat]||!groups[cat].length)return;
+      const lbl=document.createElement("div");
+      lbl.className="sec-lbl";
+      lbl.innerHTML="<h3><em>"+cat+"</em></h3><hr>";
+      feed.appendChild(lbl);
+      groups[cat].forEach(function(p){feed.appendChild(makeCard(p));});
+    });
+  }else{
+    list.forEach(function(p){feed.appendChild(makeCard(p));});
+  }
+}
+
+function makeCard(p){
+  const c=document.createElement("div");
+  c.className="card";
+  c.setAttribute("data-pid",p.id);
+  const imgSrc=p.img||"https://images.unsplash.com/photo-1490750967868-88df5691cc88?q=80&w=700&fit=crop";
+  c.innerHTML='<div class="card-img">'
+    +(p.badge?'<div class="card-badge">'+p.badge+'</div>':'')
+    +'<img src="'+imgSrc+'" alt="'+p.name+'" loading="lazy" onerror="this.src=\'https://images.unsplash.com/photo-1490750967868-88df5691cc88?q=80&w=700&fit=crop\'">'
+    +'</div>'
+    +'<div class="card-body">'
+    +'<div class="card-cat">'+p.cat+'</div>'
+    +'<div class="card-name">'+p.name+'</div>'
+    +'<div class="card-desc">'+p.desc+'</div>'
+    +'<div class="card-foot">'
+    +'<div class="card-price">'+fmt(p.price)+'</div>'
+    +'<button class="card-btn" onclick="openOrder(\''+p.id+'\')">Reservar</button>'
+    +'</div></div>';
+  return c;
+}
+
+// ============================================================
+//  ZONES SELECT
+// ============================================================
+function buildZoneSelect(){
+  const sel=document.getElementById("oZone");
+  sel.innerHTML="<option value=''>Seleccionar opción...</option>";
+  ZONES.forEach(function(z,i){
+    const opt=document.createElement("option");
+    opt.value=i;
+    opt.textContent=z.name+(z.price&&z.price!=="Gratis"?" — "+z.price:" — Gratis");
+    sel.appendChild(opt);
+  });
+  const opt2=document.createElement("option");
+  opt2.value="custom";
+  opt2.textContent="Otra dirección / Indicar manualmente";
+  sel.appendChild(opt2);
+  sel.onchange=function(){
+    document.getElementById("customAddrGroup").style.display=sel.value==="custom"?"block":"none";
+  };
+}
+
+// ============================================================
+//  ORDER MODAL
+// ============================================================
+function openOrder(id){
+  selectedProd=PRODUCTS.find(function(p){return p.id===id;});
+  if(!selectedProd)return;
+  document.getElementById("sheetName").textContent=selectedProd.name;
+  document.getElementById("sheetPrice").textContent=fmt(selectedProd.price);
+  ["oName","oPhone","oAddr","oMsg"].forEach(function(fid){
+    var el=document.getElementById(fid);if(el)el.value="";
+  });
+  document.getElementById("customAddrGroup").style.display="none";
+  buildZoneSelect();
+  var ov=document.getElementById("orderView");
+  ov.style.display="block";
+  ov.scrollTop=0;
+  window.scrollTo(0,0);
+}
+function closeOrder(){
+  document.getElementById("orderView").style.display="none";
+}
+
+function confirmOrder(){
+  const name=document.getElementById("oName").value.trim();
+  const phone=document.getElementById("oPhone").value.trim();
+  const zoneVal=document.getElementById("oZone").value;
+  if(!name){toast("⚠️ Escribe el nombre de quien recibe");document.getElementById("oName").focus();return;}
+  if(!phone){toast("⚠️ Escribe el teléfono de contacto");document.getElementById("oPhone").focus();return;}
+  let zoneLabel="";
+  if(zoneVal==="custom"){
+    const addr=document.getElementById("oAddr").value.trim()||"Por acordar";
+    zoneLabel=addr;
+  }else if(zoneVal!==""){
+    const z=ZONES[parseInt(zoneVal)];
+    zoneLabel=z?z.name+(z.price&&z.price!=="Gratis"?" ("+z.price+")":""):"Por acordar";
+  }else{zoneLabel="Por acordar";}
+  const msg=document.getElementById("oMsg").value.trim();
+  const header=INFO.waHeader||DEFAULT_INFO.waHeader;
+  const footer=INFO.waFooter||DEFAULT_INFO.waFooter;
+  const waMsg=[
+    header,"",
+    "🌺 *Arreglo:* "+selectedProd.name,
+    "💰 *Precio:* "+fmt(selectedProd.price),"",
+    "👤 *Nombre:* "+name,
+    "📞 *Teléfono:* "+phone,
+    "📍 *Entrega:* "+zoneLabel,
+    msg?"💌 *Mensaje:* "+msg:"",
+    "",footer
+  ].filter(Boolean).join("\n");
+  var waUrl=waLink(waMsg);
+  closeOrder();
+  window.location.href=waUrl;
+}
+
+// ============================================================
+//  ADMIN — PASSWORD
+// ============================================================
+function checkPw(){
+  const val=document.getElementById("pwInput").value;
+  if(val===ADMIN_PASS){
+    document.getElementById("pwg").classList.remove("show");
+    document.getElementById("aov").classList.add("open");
+    renderAdminStats();renderAdminList();renderZones();
+    populateAppearTab();populateInfoTab();
+  }else{
+    document.getElementById("pwErr").textContent="Contraseña incorrecta.";
+    document.getElementById("pwInput").value="";
+    document.getElementById("pwInput").focus();
+    setTimeout(function(){document.getElementById("pwErr").textContent="";},2200);
+  }
+}
+function openAdmin(){
+  document.getElementById("pwInput").value="";
+  document.getElementById("pwErr").textContent="";
+  document.getElementById("pwg").classList.add("show");
+  setTimeout(function(){document.getElementById("pwInput").focus();},180);
+}
+function closeAdmin(){
+  document.getElementById("aov").classList.remove("open");
+  cancelEdit();
+}
+
+document.getElementById("logoBtn").addEventListener("click",function(){
+  logoClicks++;clearTimeout(logoTimer);
+  if(logoClicks>=5){logoClicks=0;openAdmin();return;}
+  logoTimer=setTimeout(function(){logoClicks=0;},1700);
+});
+
+// ============================================================
+//  ADMIN — TABS
+// ============================================================
+function switchTab(name,btn){
+  document.querySelectorAll(".atab").forEach(function(b){b.classList.remove("on");});
+  document.querySelectorAll(".atab-content").forEach(function(c){c.classList.remove("on");});
+  btn.classList.add("on");
+  document.getElementById("tab-"+name).classList.add("on");
+}
+
+// ============================================================
+//  ADMIN — STATS
+// ============================================================
+function renderAdminStats(){
+  const sb=document.getElementById("adminStats");
+  const total=PRODUCTS.length;
+  const cats=Array.from(new Set(PRODUCTS.map(function(p){return p.cat;}))).length;
+  const zns=ZONES.length;
+  sb.innerHTML='<div class="astat"><div class="astat-val">'+total+'</div><div class="astat-lbl">Productos</div></div>'
+    +'<div class="astat"><div class="astat-val">'+cats+'</div><div class="astat-lbl">Categorías</div></div>'
+    +'<div class="astat"><div class="astat-val">'+zns+'</div><div class="astat-lbl">Zonas de envío</div></div>';
+  document.getElementById("prodCount").textContent=total;
+}
+
+// ============================================================
+//  ADMIN — PRODUCTS LIST
+// ============================================================
+function renderAdminList(){
+  const list=document.getElementById("adminProdList");
+  list.innerHTML="";
+  if(!PRODUCTS.length){
+    list.innerHTML='<div style="color:rgba(255,255,255,.28);text-align:center;padding:28px;font-size:13px">Sin productos. ¡Agrega el primero!</div>';
+    return;
+  }
+  const copy=[].concat(PRODUCTS).reverse();
+  copy.forEach(function(p){
+    const d=document.createElement("div");
+    d.className="apitem";
+    d.innerHTML='<div class="apthumb"><img src="'+(p.img||"")+'" alt="'+p.name+'" onerror="this.style.display=\'none\'"></div>'
+      +'<div class="apinfo"><div class="apname">'+p.name+'</div><div class="apcat">'+p.cat+'</div><div class="apprice">'+fmt(p.price)+'</div></div>'
+      +'<div class="apbtns"><button class="btn-ed" onclick="editProduct(\''+p.id+'\')">✏ Editar</button><button class="btn-dl" onclick="deleteProduct(\''+p.id+'\')">🗑 Borrar</button></div>';
+    list.appendChild(d);
+  });
+}
+
+// ============================================================
+//  ADMIN — ADD/EDIT PRODUCT
+// ============================================================
+function handleImg(input){
+  const file=input.files[0];if(!file)return;
+  const rd=new FileReader();
+  rd.onload=function(e){
+    pendingImgBase64=e.target.result;
+    document.getElementById("imgPreviewEl").src=pendingImgBase64;
+    document.getElementById("imgPreviewEl").style.display="block";
+    document.getElementById("imgPlaceholder").style.display="none";
+    document.getElementById("afImgUrl").value="";
+  };
+  rd.readAsDataURL(file);
+}
+
+function saveProduct(){
+  const name=document.getElementById("afName").value.trim();
+  const price=parseFloat(document.getElementById("afPrice").value);
+  const cat=document.getElementById("afCat").value;
+  const desc=document.getElementById("afDesc").value.trim();
+  const badge=document.getElementById("afBadge").value.trim();
+  const imgUrl=document.getElementById("afImgUrl").value.trim();
+  const img=pendingImgBase64||imgUrl||"https://images.unsplash.com/photo-1490750967868-88df5691cc88?q=80&w=700&fit=crop";
+  if(!name){toast("⚠️ Escribe el nombre del producto");return;}
+  if(!price||price<=0){toast("⚠️ Ingresa un precio válido");return;}
+  if(!cat){toast("⚠️ Selecciona una categoría");return;}
+  if(editingId){
+    const idx=PRODUCTS.findIndex(function(p){return p.id===editingId;});
+    if(idx>-1)PRODUCTS[idx]={id:editingId,name:name,price:price,cat:cat,desc:desc,badge:badge,img:img};
+    toast("✅ Producto actualizado");
+  }else{
+    PRODUCTS.push({id:uid(),name:name,price:price,cat:cat,desc:desc,badge:badge,img:img});
+    toast("✅ Producto agregado");
+  }
+  saveData();cancelEdit();renderAdminStats();renderAdminList();renderFeed();buildTabs();
+}
+
+function editProduct(id){
+  const p=PRODUCTS.find(function(x){return x.id===id;});
+  if(!p)return;
+  editingId=p.id;
+  document.getElementById("afName").value=p.name;
+  document.getElementById("afPrice").value=p.price;
+  document.getElementById("afCat").value=p.cat;
+  document.getElementById("afDesc").value=p.desc||"";
+  document.getElementById("afBadge").value=p.badge||"";
+  document.getElementById("afImgUrl").value=p.img||"";
+  pendingImgBase64=null;
+  if(p.img){
+    document.getElementById("imgPreviewEl").src=p.img;
+    document.getElementById("imgPreviewEl").style.display="block";
+    document.getElementById("imgPlaceholder").style.display="none";
+  }
+  document.getElementById("formLabel").textContent="✏ Editando: "+p.name;
+  document.getElementById("afSubmitBtn").textContent="💾 Guardar Cambios";
+  document.getElementById("aform").classList.add("editing");
+  document.getElementById("aform").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function deleteProduct(id){
+  const p=PRODUCTS.find(function(x){return x.id===id;});
+  if(!p)return;
+  if(!confirm("¿Eliminar \""+p.name+"\"?"))return;
+  PRODUCTS=PRODUCTS.filter(function(x){return x.id!==id;});
+  saveData();renderAdminStats();renderAdminList();renderFeed();buildTabs();
+  toast("🗑 Producto eliminado");
+}
+
+function cancelEdit(){
+  editingId=null;pendingImgBase64=null;
+  ["afName","afPrice","afDesc","afBadge","afImgUrl"].forEach(function(id){document.getElementById(id).value="";});
+  document.getElementById("afCat").value="";
+  document.getElementById("afImgFile").value="";
+  document.getElementById("imgPreviewEl").src="";
+  document.getElementById("imgPreviewEl").style.display="none";
+  document.getElementById("imgPlaceholder").style.display="";
+  document.getElementById("formLabel").textContent="+ Agregar Producto";
+  document.getElementById("afSubmitBtn").textContent="+ Agregar";
+  document.getElementById("aform").classList.remove("editing");
+}
+
+// ============================================================
+//  ADMIN — ZONES
+// ============================================================
+function renderZones(){
+  const zl=document.getElementById("zoneList");
+  zl.innerHTML="";
+  if(!ZONES.length){zl.innerHTML='<p style="color:rgba(255,255,255,.28);font-size:13px;padding:16px 0">Sin zonas. Agrega la primera.</p>';return;}
+  ZONES.forEach(function(z,i){
+    const d=document.createElement("div");
+    d.className="zoneitem";
+    d.innerHTML='<span class="zone-name">'+z.name+'</span><span class="zone-price">'+z.price+'</span>'
+      +'<button class="zone-del" onclick="deleteZone('+i+')">✕</button>';
+    zl.appendChild(d);
+  });
+}
+function addZone(){
+  const name=document.getElementById("znName").value.trim();
+  const price=document.getElementById("znPrice").value.trim();
+  if(!name){toast("⚠️ Escribe el nombre de la zona");return;}
+  if(!price){toast("⚠️ Escribe el precio o 'Gratis'");return;}
+  ZONES.push({name:name,price:price});
+  document.getElementById("znName").value="";
+  document.getElementById("znPrice").value="";
+  saveData();renderZones();renderAdminStats();
+  toast("✅ Zona agregada");
+}
+function deleteZone(i){
+  if(!confirm("¿Eliminar zona \""+ZONES[i].name+"\"?"))return;
+  ZONES.splice(i,1);
+  saveData();renderZones();renderAdminStats();
+  toast("🗑 Zona eliminada");
+}
+
+// ============================================================
+//  ADMIN — APPEARANCE TAB
+// ============================================================
+function populateAppearTab(){
+  // Build palette list
+  const pl=document.getElementById("paletteList");
+  pl.innerHTML="";
+  PALETTES.forEach(function(pal){
+    const item=document.createElement("div");
+    item.className="pal-item"+(APPEAR.palette===pal.id?" active":"");
+    item.innerHTML='<div class="pal-swatches">'+pal.swatches.map(function(s){return'<div class="swatch" style="background:'+s+'"></div>';}).join("")+'</div>'
+      +'<span class="pal-label">'+pal.label+'</span>'
+      +'<span class="pal-check">✓</span>';
+    item.onclick=function(){applyPalette(pal.id);};
+    pl.appendChild(item);
+  });
+
+  // Fonts
+  const fdOpts=document.getElementById("fontDisplayOpts");
+  fdOpts.innerHTML="";
+  DISPLAY_FONTS.forEach(function(f){
+    const d=document.createElement("div");
+    d.className="font-opt"+(APPEAR.fontDisplay===f.id?" active":"");
+    d.style.fontFamily=f.css;
+    d.innerHTML='<span class="font-opt-name">'+f.label+'</span><span class="font-opt-preview">'+f.preview+'</span><span class="font-opt-check">✓</span>';
+    d.onclick=function(){
+      APPEAR.fontDisplay=f.id;
+      document.querySelectorAll(".font-opt").forEach(function(x){x.classList.remove("active");});
+      d.classList.add("active");
+      applyAppearance();
+    };
+    fdOpts.appendChild(d);
+  });
+
+  const fbOpts=document.getElementById("fontBodyOpts");
+  fbOpts.innerHTML="";
+  BODY_FONTS.forEach(function(f){
+    const d=document.createElement("div");
+    d.className="font-opt"+(APPEAR.fontBody===f.id?" active":"");
+    d.style.fontFamily=f.css;
+    d.innerHTML='<span class="font-opt-name">'+f.label+'</span><span class="font-opt-preview">'+f.preview+'</span><span class="font-opt-check">✓</span>';
+    d.onclick=function(){
+      APPEAR.fontBody=f.id;
+      document.querySelectorAll("#fontBodyOpts .font-opt").forEach(function(x){x.classList.remove("active");});
+      d.classList.add("active");
+      applyAppearance();
+    };
+    fbOpts.appendChild(d);
+  });
+
+  // Color pickers
+  syncColorPickers();
+
+  // Banner toggles
+  document.getElementById("togBanner").checked=APPEAR.bannerVisible!==false;
+  document.getElementById("bannerUrl").value=APPEAR.bannerUrl||"";
+  document.getElementById("bannerPill").value=APPEAR.bannerPill||DEFAULT_APPEAR.bannerPill;
+  document.getElementById("bannerTitle").value=APPEAR.bannerTitle||DEFAULT_APPEAR.bannerTitle;
+  document.getElementById("bannerDesc").value=APPEAR.bannerDesc||DEFAULT_APPEAR.bannerDesc;
+  if(APPEAR.bannerB64){
+    document.getElementById("bannerPreviewImg").src=APPEAR.bannerB64;
+    document.getElementById("bannerPreviewImg").style.display="block";
+    document.getElementById("bannerPreviewPlaceholder").style.display="none";
+  }
+
+  // Logo
+  document.getElementById("logoTaglineInput").value=APPEAR.logoTagline||"Hermanas";
+  document.getElementById("logoNameInput").value=APPEAR.logoName||"DecoFlor";
+  if(APPEAR.logoUrl){
+    document.getElementById("logoUploadPreview").src=APPEAR.logoUrl;
+    document.getElementById("logoUploadPreview").style.display="block";
+    document.getElementById("logoUploadPlaceholder").style.display="none";
+  }
+}
+
+function syncColorPickers(){
+  ["primary","accent","bg","dark"].forEach(function(key){
+    const val=APPEAR[key]||"#000000";
+    const cp=document.getElementById("cp"+cap(key));
+    const hex=document.getElementById("hex"+cap(key));
+    const sw=document.getElementById("sw"+cap(key));
+    if(cp)cp.value=val;
+    if(hex)hex.value=val;
+    if(sw)sw.style.background=val;
+  });
+}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+
+function applyPalette(palId){
+  const pal=PALETTES.find(function(p){return p.id===palId;});
+  if(!pal)return;
+  APPEAR.palette=palId;
+  APPEAR.primary=pal.primary;
+  APPEAR.accent=pal.accent;
+  APPEAR.bg=pal.bg;
+  APPEAR.dark=pal.dark;
+  APPEAR.mid=pal.mid||"#888";
+  document.querySelectorAll(".pal-item").forEach(function(el){el.classList.remove("active");});
+  document.querySelectorAll(".pal-item").forEach(function(el,i){
+    if(PALETTES[i]&&PALETTES[i].id===palId)el.classList.add("active");
+  });
+  syncColorPickers();
+  applyAppearance();
+  saveAppearLS();
+  toast("🎨 Paleta aplicada: "+pal.label);
+}
+
+function liveColor(key,val){
+  APPEAR[key]=val;
+  const sw=document.getElementById("sw"+cap(key));
+  const hex=document.getElementById("hex"+cap(key));
+  if(sw)sw.style.background=val;
+  if(hex)hex.value=val;
+  applyAppearance();
+}
+function hexInput(key,val){
+  if(/^#[0-9A-Fa-f]{6}$/.test(val)){
+    APPEAR[key]=val;
+    const cp=document.getElementById("cp"+cap(key));
+    const sw=document.getElementById("sw"+cap(key));
+    if(cp)cp.value=val;
+    if(sw)sw.style.background=val;
+    applyAppearance();
+  }
+}
+
+function saveAppearance(){
+  APPEAR.bannerVisible=document.getElementById("togBanner").checked;
+  APPEAR.bannerUrl=document.getElementById("bannerUrl").value.trim();
+  if(pendingBannerB64)APPEAR.bannerB64=pendingBannerB64;
+  APPEAR.bannerPill=document.getElementById("bannerPill").value||DEFAULT_APPEAR.bannerPill;
+  APPEAR.bannerTitle=document.getElementById("bannerTitle").value||DEFAULT_APPEAR.bannerTitle;
+  APPEAR.bannerDesc=document.getElementById("bannerDesc").value||DEFAULT_APPEAR.bannerDesc;
+  saveAppearLS();
+  applyAppearance();
+  toast("✅ Apariencia guardada");
+}
+
+function saveBanner(){
+  saveAppearance();
+}
+
+function saveLogo(){
+  APPEAR.logoTagline=document.getElementById("logoTaglineInput").value.trim()||"Hermanas";
+  APPEAR.logoName=document.getElementById("logoNameInput").value.trim()||"DecoFlor";
+  if(pendingLogoB64)APPEAR.logoUrl=pendingLogoB64;
+  saveAppearLS();
+  applyAppearance();
+  applyInfo();
+  toast("✅ Logo guardado");
+}
+
+function handleBannerImg(input){
+  const file=input.files[0];if(!file)return;
+  const rd=new FileReader();
+  rd.onload=function(e){
+    pendingBannerB64=e.target.result;
+    document.getElementById("bannerPreviewImg").src=pendingBannerB64;
+    document.getElementById("bannerPreviewImg").style.display="block";
+    document.getElementById("bannerPreviewPlaceholder").style.display="none";
+    document.getElementById("bannerUrl").value="";
+  };
+  rd.readAsDataURL(file);
+}
+
+function handleLogoImg(input){
+  const file=input.files[0];if(!file)return;
+  const rd=new FileReader();
+  rd.onload=function(e){
+    pendingLogoB64=e.target.result;
+    document.getElementById("logoUploadPreview").src=pendingLogoB64;
+    document.getElementById("logoUploadPreview").style.display="block";
+    document.getElementById("logoUploadPlaceholder").style.display="none";
+  };
+  rd.readAsDataURL(file);
+}
+
+// ============================================================
+//  ADMIN — INFO TAB
+// ============================================================
+function populateInfoTab(){
+  document.getElementById("infoPhone").value=INFO.phone||DEFAULT_INFO.phone;
+  document.getElementById("infoInsta").value=INFO.insta||"";
+  document.getElementById("infoFb").value=INFO.fb||"";
+  document.getElementById("infoTiktok").value=INFO.tiktok||"";
+  document.getElementById("infoPageTitle").value=INFO.pageTitle||DEFAULT_INFO.pageTitle;
+  document.getElementById("infoCopy").value=INFO.copy||DEFAULT_INFO.copy;
+  document.getElementById("togFab").checked=INFO.fabVisible!==false;
+  document.getElementById("infoWaHeader").value=INFO.waHeader||DEFAULT_INFO.waHeader;
+  document.getElementById("infoWaFooter").value=INFO.waFooter||DEFAULT_INFO.waFooter;
+}
+
+function saveInfo(){
+  INFO.phone=(document.getElementById("infoPhone").value.trim().replace(/\D/g,""))||DEFAULT_INFO.phone;
+  INFO.insta=document.getElementById("infoInsta").value.trim().replace("@","");
+  INFO.fb=document.getElementById("infoFb").value.trim();
+  INFO.tiktok=document.getElementById("infoTiktok").value.trim();
+  INFO.pageTitle=document.getElementById("infoPageTitle").value.trim()||DEFAULT_INFO.pageTitle;
+  INFO.copy=document.getElementById("infoCopy").value.trim()||DEFAULT_INFO.copy;
+  INFO.fabVisible=document.getElementById("togFab").checked;
+  INFO.waHeader=document.getElementById("infoWaHeader").value.trim()||DEFAULT_INFO.waHeader;
+  INFO.waFooter=document.getElementById("infoWaFooter").value.trim()||DEFAULT_INFO.waFooter;
+  saveInfoLS();
+  applyInfo();
+  toast("✅ Información guardada");
+}
+
+// ============================================================
+//  ADMIN — SECURITY
+// ============================================================
+function changePassword(){
+  const old=document.getElementById("pwOld").value;
+  const nw=document.getElementById("pwNew").value;
+  const cf=document.getElementById("pwConfirm").value;
+  if(old!==ADMIN_PASS){toast("⚠️ La contraseña actual es incorrecta");return;}
+  if(!nw||nw.length<4){toast("⚠️ La nueva contraseña debe tener al menos 4 caracteres");return;}
+  if(nw!==cf){toast("⚠️ Las contraseñas nuevas no coinciden");return;}
+  ADMIN_PASS=nw;
+  savePass(nw);
+  document.getElementById("pwOld").value="";
+  document.getElementById("pwNew").value="";
+  document.getElementById("pwConfirm").value="";
+  toast("🔐 Contraseña cambiada correctamente");
+}
+
+function resetData(){
+  if(!confirm("¿Restablecer todos los productos y zonas a los valores originales?\n\nEsta acción no se puede deshacer."))return;
+  PRODUCTS=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+  ZONES=JSON.parse(JSON.stringify(DEFAULT_ZONES));
+  saveData();renderAdminStats();renderAdminList();renderZones();renderFeed();buildTabs();
+  toast("🔄 Datos restablecidos");
+}
+
+// ============================================================
+//  EXPORT
+// ============================================================
+function exportHTML(){
+  // Temporarily hide admin overlay and password gate so the exported file
+  // opens directly in catalog view (not admin panel)
+  const aov=document.getElementById("aov");
+  const pwg=document.getElementById("pwg");
+  const aovWasOpen=aov.classList.contains("open");
+  const pwgWasShown=pwg.classList.contains("show");
+  aov.classList.remove("open");
+  pwg.classList.remove("show");
+
+  let html=document.documentElement.outerHTML;
+
+  // Restore state for current session
+  if(aovWasOpen) aov.classList.add("open");
+  if(pwgWasShown) pwg.classList.add("show");
+
+  // Bake current data into the defaults so the exported file loads it without localStorage
+  const prodJSON=JSON.stringify(PRODUCTS,null,2);
+  html=html.replace(/const DEFAULT_PRODUCTS = \[[\s\S]*?\];/,"const DEFAULT_PRODUCTS = "+prodJSON+";");
+  const zoneJSON=JSON.stringify(ZONES,null,2);
+  html=html.replace(/const DEFAULT_ZONES = \[[\s\S]*?\];/,"const DEFAULT_ZONES = "+zoneJSON+";");
+  const appearJSON=JSON.stringify(APPEAR,null,2);
+  html=html.replace(/const DEFAULT_APPEAR = \{[\s\S]*?\};/,"const DEFAULT_APPEAR = "+appearJSON+";");
+  const infoJSON=JSON.stringify(INFO,null,2);
+  html=html.replace(/const DEFAULT_INFO = \{[\s\S]*?\};/,"const DEFAULT_INFO = "+infoJSON+";");
+
+  const blob=new Blob([html],{type:"text/html;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="Catalogo_DecoFlor_Pro.html";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("📥 ¡Catálogo descargado! Envía ese archivo a tus clientes.");
+}
+
+// ============================================================
+//  TOAST
+// ============================================================
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  setTimeout(function(){t.classList.remove("show");},3000);
+}
+
+// ============================================================
+//  BOOT
+// ============================================================
+// iOS: passive touchstart makes elements "clickable"
+document.addEventListener("touchstart",function(){},{passive:true,capture:true});
+
+// event delegation backup for card buttons
+document.addEventListener("click",function(e){
+  var btn=e.target;
+  while(btn&&btn!==document.body){
+    if(btn.classList&&btn.classList.contains("card-btn")){
+      var card=btn.parentElement;while(card&&!card.getAttribute("data-pid"))card=card.parentElement;
+      if(card){var pid=card.getAttribute("data-pid");if(pid)openOrder(pid);}
+      return;
+    }
+    if(btn.classList&&btn.classList.contains("catbtn")){
+      var cat=btn.getAttribute("data-cat");
+      if(cat){activeCat=cat;renderFeed();buildTabs();}
+      return;
+    }
+    btn=btn.parentElement;
+  }
+},true);
+
+applyAppearance();
+applyInfo();
+buildTabs();
+renderFeed();
+</script>
+</body>
+</html>
