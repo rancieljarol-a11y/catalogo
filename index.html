@@ -363,11 +363,7 @@ img{display:block;max-width:100%;object-fit:cover}
 .apprice{font-family:'Cormorant Garamond',serif;color:var(--primary);font-size:15px;font-weight:700;margin-top:2px}
 .apbtns{display:flex;flex-direction:column;gap:5px;flex-shrink:0}
 .btn-ed{padding:5px 12px;border-radius:30px;background:rgba(201,135,90,.14);color:var(--accent);font-size:11px;border:1px solid rgba(201,135,90,.18);transition:all .18s}
-.btn-photo{padding:5px 12px;border-radius:30px;background:rgba(37,211,102,.12);color:#25D366;font-size:11px;border:1px solid rgba(37,211,102,.18);transition:all .18s;cursor:pointer;position:relative;overflow:hidden}
-.btn-photo input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.btn-photo-rm{padding:5px 12px;border-radius:30px;background:rgba(255,165,0,.12);color:#e0a030;font-size:11px;border:1px solid rgba(255,165,0,.18);transition:all .18s}
 .btn-dl{padding:5px 12px;border-radius:30px;background:rgba(193,65,90,.1);color:#e08096;font-size:11px;border:1px solid rgba(193,65,90,.12);transition:all .18s}
-.apthumb-empty{display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:20px}
 .zonelist{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
 .zoneitem{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(201,135,90,.12);border-radius:13px;padding:12px 14px}
 .zone-name{flex:1;color:#fff;font-size:14px;font-weight:500}
@@ -649,9 +645,13 @@ img{display:block;max-width:100%;object-fit:cover}
               <label class="aflbl">Categoría *</label>
               <select class="afselect" id="afCat">
                 <option value="">Seleccionar...</option>
-                <option>Equipos Pesados</option>
-                <option>Servicios</option>
-                <option>Proyectos y Clientes</option>
+                <option>Pequeños Detalles</option>
+                <option>Los Más Vendidos</option>
+                <option>Detalles Especiales</option>
+                <option>Colección Premium</option>
+                <option>Colección Exclusiva</option>
+                <option>Grandes Gestos</option>
+                <option>Desayunos</option>
               </select>
             </div>
             <div class="afgroup affull">
@@ -986,7 +986,7 @@ const LS_INFO      = "decoflor_info_v3";
 const LS_PASS      = "decoflor_pass_v3";
 const DEFAULT_PASS = "123456";
 
-const CATS_ORDER = ["Equipos Pesados", "Servicios", "Proyectos y Clientes"];
+const CATS_ORDER = ["Pequeños Detalles","Los Más Vendidos","Detalles Especiales","Colección Premium","Colección Exclusiva","Grandes Gestos","Desayunos"];
 
 // ============================================================
 //  COLOR PALETTES
@@ -1049,51 +1049,62 @@ const BODY_FONTS = [
 //  DEFAULT DATA
 // ============================================================
 const DEFAULT_PRODUCTS = [
-  {id:"retropala",name:"Retro Pala",desc:"Ideales para trabajos de excavación, carga y nivelación. Diseño versátil para espacios amplios o reducidos.",price:0,cat:"Equipos Pesados",img:"https://images.unsplash.com/photo-1579844208083-05e8395ea2e1?q=80&w=700&fit=crop",badge:"En Renta"},
-  {id:"retroexcavadora",name:"Retroexcavadora",desc:"Potentes y confiables para excavaciones profundas, apertura de zanjas y movimientos de tierra a gran escala.",price:0,cat:"Equipos Pesados",img:"https://images.unsplash.com/photo-1541888056-2e6dd09968b5?q=80&w=700&fit=crop",badge:"En Renta"},
-  {id:"rodillo",name:"Rodillos Compactadores",desc:"Para todo tipo de terreno. Garantizan una compactación uniforme y resistente, esencial para preparación de suelos.",price:0,cat:"Equipos Pesados",img:"https://images.unsplash.com/photo-1581452902640-ecb8db5f9cb8?q=80&w=700&fit=crop",badge:"En Renta"},
-  {id:"compresor",name:"Compresor con Martillo",desc:"Ideales para romper aceras, pavimentos y estructuras de concreto. Equipos potentes y seguros.",price:0,cat:"Equipos Pesados",img:"https://images.unsplash.com/photo-1504307651254-35680f356f12?q=80&w=700&fit=crop",badge:"En Renta"},
-  {id:"minicargador",name:"Mini Cargador",desc:"Versátiles y eficientes, perfectos para cargar, empujar o nivelar materiales en espacios reducidos.",price:0,cat:"Equipos Pesados",img:"https://images.unsplash.com/photo-1581452902640-ecb8db5f9cb8?q=80&w=700&fit=crop",badge:"En Renta"},
-  {id:"greadar",name:"Greadar en Renta",desc:"Potentes, ideales para nivelar terrenos, perfilar caminos y preparar superficies con precisión y estabilidad.",price:0,cat:"Equipos Pesados",img:"https://images.unsplash.com/photo-1621255502693-db291dcf134c?q=80&w=700&fit=crop",badge:"En Renta"},
-  {id:"mov-tierra",name:"Movimientos de Tierra & Suministros",desc:"Excavaciones, venta de agregados y suministro de material de relleno. Calidad y eficiencia.",price:0,cat:"Servicios",img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=700&fit=crop",badge:"Servicio"},
-  {id:"cli-bravo",name:"Grupo Bravo",desc:"Centro de Distribución La Caleta, Supermercados Bravo San Isidro, Jacobo Majluta, Naco, Las Americas.",price:0,cat:"Proyectos y Clientes",img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=700&fit=crop",badge:"Cliente"},
-  {id:"cli-treadwell",name:"Constructora Carrasquero",desc:"Aeropuerto Las Américas (Duty Free), Mueblería Tactuc Av. Kennedy.",price:0,cat:"Proyectos y Clientes",img:"https://images.unsplash.com/photo-1541888056-2e6dd09968b5?q=80&w=700&fit=crop",badge:"Cliente"},
-  {id:"cli-proyesdo",name:"Proyesdo S.R.L (Proacero)",desc:"Nuevo TacoBell Av. Luperón, Villar Hermanos Av. Independencia, Piso S Bravo San Isidro.",price:0,cat:"Proyectos y Clientes",img:"https://images.unsplash.com/photo-1504307651254-35680f356f12?q=80&w=700&fit=crop",badge:"Cliente"},
-  {id:"cli-tesela",name:"Tesela S.R.L",desc:"Remodelación y estaciones de combustible Shell en Kennedy, Monte Plata, Yamasá y San Francisco de Macorís.",price:0,cat:"Proyectos y Clientes",img:"https://images.unsplash.com/photo-1581452902640-ecb8db5f9cb8?q=80&w=700&fit=crop",badge:"Cliente"},
-  {id:"cli-urbana",name:"Urbana Constructora",desc:"Torre de apartamentos Parc 131 en la Esperilla (Perfilación y excavación de Zapatas).",price:0,cat:"Proyectos y Clientes",img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=700&fit=crop",badge:"Cliente"},
-  {id:"cli-incifire",name:"Incifire S.R.L",desc:"Movimiento de Tierra para Nave Industrial en Haina.",price:0,cat:"Proyectos y Clientes",img:"https://images.unsplash.com/photo-1541888056-2e6dd09968b5?q=80&w=700&fit=crop",badge:"Cliente"}
+  {id:"cafetera-mama",name:"Cafetera Para Mamá",desc:"Rosas, lilium, flores de relleno y follajes frescos en hermosa cafetera decorativa.",price:2500,cat:"Pequeños Detalles",img:"https://images.unsplash.com/photo-1555212697-194d092e3b8f?q=80&w=700&fit=crop",badge:""},
+  {id:"elegancia-viva",name:"Elegancia Viva Que Perdura",desc:"Nuestras orquídeas son admiración que sigue floreciendo y llenando de belleza cualquier espacio.",price:2200,cat:"Pequeños Detalles",img:"https://images.unsplash.com/photo-1612530309988-3e71b26bf6cb?q=80&w=700&fit=crop",badge:""},
+  {id:"ramo-princesa",name:"Ramo Princesa",desc:"\"Princesa\" enamora por su delicada combinación de rosas frescas, follajes premium y su elegante presentación.",price:3800,cat:"Los Más Vendidos",img:"https://images.unsplash.com/photo-1561181286-d3fee7d55364?q=80&w=700&fit=crop",badge:"⭐ Más Vendido"},
+  {id:"ramo-reina",name:"Ramo Reina",desc:"Con hermosas rosas frescas y una presentación elegante que transmite amor y admiración.",price:6950,cat:"Los Más Vendidos",img:"https://images.unsplash.com/photo-1508610048659-a06b669e3321?q=80&w=700&fit=crop",badge:"❤ Favorito"},
+  {id:"box-luxury",name:"Box Luxury",desc:"Hermosa composición con rosas frescas, orquídea, vino y delicados complementos decorativos.",price:6500,cat:"Los Más Vendidos",img:"https://images.unsplash.com/photo-1596438459194-f275f413d6ff?q=80&w=700&fit=crop",badge:""},
+  {id:"garden-pink",name:"Garden Pink",desc:"Hermosas rosas rosadas y lilium frescos en fina base decorativa premium. Perfecto para consentir a Mamá.",price:6250,cat:"Los Más Vendidos",img:"https://images.unsplash.com/photo-1559834557-80bae0910df4?q=80&w=700&fit=crop",badge:""},
+  {id:"jardin-rosas",name:"Jardín De Rosas Premium",desc:"Elegante arreglo de rosas frescas en fina base de madera, diseñado para sorprender a Mamá.",price:8500,cat:"Detalles Especiales",img:"https://images.unsplash.com/photo-1606041008023-472dfb5e530f?q=80&w=700&fit=crop",badge:""},
+  {id:"encanto-lilium",name:"Encanto Rosa & Lilium",desc:"Una composición espectacular de rosas y liliums frescos, perfecta para expresar admiración, amor y gratitud.",price:9850,cat:"Detalles Especiales",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=700&fit=crop",badge:""},
+  {id:"dulce-encanto",name:"Dulce Encanto",desc:"Una combinación encantadora de rosas frescas en una presentación fina y delicada.",price:8850,cat:"Colección Premium",img:"https://images.unsplash.com/photo-1490750967868-88df5691cc88?q=80&w=700&fit=crop",badge:""},
+  {id:"elegancia-flor",name:"Elegancia En Flor",desc:"Un arreglo sofisticado en hermoso florero decorativo con delicadas rosas frescas y follajes seleccionados.",price:8850,cat:"Colección Premium",img:"https://images.unsplash.com/photo-1487530811015-780780169c1a?q=80&w=700&fit=crop",badge:""},
+  {id:"majestad",name:"Majestad Suprema",desc:"Una composición impactante de rosas premium en presentación de lujo.",price:11550,cat:"Colección Premium",img:"https://images.unsplash.com/photo-1566739566-8e2e6c461e46?q=80&w=700&fit=crop",badge:""},
+  {id:"arte-floral",name:"Arte Floral Exclusivo",desc:"Una creación artística que fusiona flores premium, texturas y diseño sofisticado en una pieza única.",price:14500,cat:"Colección Premium",img:"https://images.unsplash.com/photo-1548532928-b34e3be62fc6?q=80&w=700&fit=crop",badge:""},
+  {id:"pureza-inf",name:"Pureza Infinita",desc:"Una elegante composición de orquídeas premium en presentación sofisticada y atemporal.",price:14250,cat:"Colección Exclusiva",img:"https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=700&fit=crop",badge:""},
+  {id:"jardin-imp",name:"Jardín Imperial",desc:"Una creación floral majestuosa con exquisitas orquídeas premium.",price:16500,cat:"Colección Exclusiva",img:"https://images.unsplash.com/photo-1531970227116-4e07be0ded21?q=80&w=700&fit=crop",badge:""},
+  {id:"lugar-seg",name:"Mi Lugar Seguro",desc:"Una creación extraordinaria para recordarle a Mamá que su amor siempre será nuestro lugar seguro.",price:17500,cat:"Colección Exclusiva",img:"https://images.unsplash.com/photo-1525385133512-2f3bdd039054?q=80&w=700&fit=crop",badge:""},
+  {id:"jardin-ens",name:"Jardín De Ensueño",desc:"Composición floral espectacular que combina rosas, orquídeas y delicados detalles en presentación artística.",price:17500,cat:"Colección Exclusiva",img:"https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=700&fit=crop",badge:""},
+  {id:"ramo-waooo",name:"Ramo Waooo",desc:"Impresionante ramo de 75 rosas premium. Un espectáculo floral para sorprender a Mamá.",price:16500,cat:"Grandes Gestos",img:"https://images.unsplash.com/photo-1548460052-f29bfc4aa1dc?q=80&w=700&fit=crop",badge:"🌹 75 Rosas"},
+  {id:"waooo-sup",name:"Ramo Waooo Supremo",desc:"Una creación extraordinaria de 150 rosas premium para una experiencia impactante.",price:29500,cat:"Grandes Gestos",img:"https://images.unsplash.com/photo-1572635148818-ef6fd45eb995?q=80&w=700&fit=crop",badge:"👑 150 Rosas"},
+  {id:"reina-eterna",name:"Reina Eterna",desc:"Una creación majestuosa de 100 rosas premium, diseñada para sorprender.",price:26500,cat:"Grandes Gestos",img:"https://images.unsplash.com/photo-1532636875304-0fbe6dfbcb09?q=80&w=700&fit=crop",badge:"💫 100 Rosas"},
+  {id:"imperio",name:"Imperio De Amor",desc:"La máxima expresión del amor. 200 rosas premium para impactar y emocionar.",price:39500,cat:"Grandes Gestos",img:"https://images.unsplash.com/photo-1501973931234-57b48156a4bc?q=80&w=700&fit=crop",badge:"🏆 200 Rosas"},
+  {id:"des-deluxe",name:"Desayuno Deluxe Gourmet",desc:"En elegante caja de lujo con acetato transparente. Tabla gourmet de embutidos y acompañamientos.",price:6800,cat:"Desayunos",img:"https://images.unsplash.com/photo-1476224203421-9ac39bcb3df0?q=80&w=700&fit=crop",badge:""},
+  {id:"des-prem",name:"Desayuno Premium Signature",desc:"Bandeja premium: croissants artesanales, rollitos, embutidos, quesos, frutas frescas, jugo y complementos.",price:7550,cat:"Desayunos",img:"https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?q=80&w=700&fit=crop",badge:"🥐 Signature"}
 ];
 
 const DEFAULT_ZONES = [
-  {name:"Santo Domingo",price:"Por cotizar"},
-  {name:"Interior del País",price:"Por cotizar"}
+  {name:"Recoger en tienda",price:"Gratis"},
+  {name:"Constanza Centro",price:"RD$150"},
+  {name:"Los Dajaos",price:"RD$200"},
+  {name:"La Cienaga",price:"RD$250"}
 ];
 
 const DEFAULT_APPEAR = {
-  palette:"tierra-cobre",
-  primary:"#8B4513", accent:"#CD7F32", bg:"#FFF8F0", dark:"#2C1810", mid:"#8B6555",
-  fontDisplay:"jost", fontBody:"jost",
+  palette:"rosa-clásico",
+  primary:"#C1415A", accent:"#C9875A", bg:"#F9F4EF", dark:"#2C1F1F", mid:"#7A5C5C",
+  fontDisplay:"cormorant", fontBody:"jost",
   bannerVisible:true,
-  bannerUrl:"https://images.unsplash.com/photo-1504307651254-35680f356f12?q=80&w=900&fit=crop",
+  bannerUrl:"",
   bannerB64:"",
-  bannerPill:"🏗 Catálogo de Equipos y Servicios",
-  bannerTitle:"Sethika\n**Constructora**",
-  bannerDesc:"Desarrollo de proyectos de construcción, renta de equipos pesados y movimientos de tierra a nivel nacional.",
+  bannerPill:"🌸 Catálogo Exclusivo · Madres 2026",
+  bannerTitle:"Para **Mamá**,\ncon amor",
+  bannerDesc:"Pedidos limitados · Reserva con anticipación\nEntrega el Día de las Madres",
   logoUrl:"",
-  logoTagline:"Constructora",
-  logoName:"Sethika"
+  logoTagline:"Hermanas",
+  logoName:"DecoFlor"
 };
 
 const DEFAULT_INFO = {
-  phone:"18296400203",
-  insta:"sethikaconstructora",
+  phone:"18293802507",
+  insta:"hermanasdecoflor",
   fb:"",
   tiktok:"",
-  pageTitle:"Catálogo · Sethika Constructora",
-  copy:"© 2026 Sethika Constructora · Todos los derechos reservados",
+  pageTitle:"Catálogo Madres 2026 · Hermanas DecoFlor",
+  copy:"© 2026 Hermanas DecoFlor · Todos los derechos reservados",
   fabVisible:true,
-  waHeader:"🚧 *CONSULTA DE EQUIPOS / SERVICIOS*",
-  waFooter:"✅ Quedo pendiente de respuesta."
+  waHeader:"🌸 *PEDIDO — CATÁLOGO MADRES 2026*",
+  waFooter:"✅ Quedo pendiente de confirmación."
 };
 
 // ============================================================
@@ -1115,7 +1126,7 @@ function parseProductsFromFirebase(raw) {
   return Object.values(raw);
 }
 
-db.ref('/sethika').on('value', function(snapshot) {
+db.ref('/').on('value', function(snapshot) {
   const data = snapshot.val() || {};
   PRODUCTS = parseProductsFromFirebase(data.products);
   ZONES = data.zones || JSON.parse(JSON.stringify(DEFAULT_ZONES));
@@ -1145,12 +1156,12 @@ function saveData() {
   // Store products as {id: product} object for independent nodes
   const prodObj = {};
   PRODUCTS.forEach(function(p) { prodObj[p.id] = p; });
-  db.ref('/sethika/products').set(prodObj);
-  db.ref('/sethika/zones').set(ZONES);
+  db.ref('products').set(prodObj);
+  db.ref('zones').set(ZONES);
 }
-function saveAppearLS() { db.ref('/sethika/appear').set(APPEAR); }
-function saveInfoLS() { db.ref('/sethika/info').set(INFO); }
-function savePass(p) { db.ref('/sethika/pass').set(p); }
+function saveAppearLS() { db.ref('appear').set(APPEAR); }
+function saveInfoLS() { db.ref('info').set(INFO); }
+function savePass(p) { db.ref('pass').set(p); }
 
 let activeCat="Todos";
 let selectedProd=null;
@@ -1303,7 +1314,7 @@ function setAllWaLinks(){
 // ============================================================
 //  FORMAT
 // ============================================================
-function fmt(n){return n==0 ? "Consultar" : "RD$ "+Number(n).toLocaleString("es-DO");}
+function fmt(n){return"RD$ "+Number(n).toLocaleString("es-DO");}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 
 // ============================================================
@@ -1517,46 +1528,11 @@ function renderAdminList(){
   copy.forEach(function(p){
     const d=document.createElement("div");
     d.className="apitem";
-    const hasImg = p.img && p.img.length > 10;
-    const thumbHtml = hasImg
-      ? '<div class="apthumb"><img src="'+p.img+'" alt="'+p.name+'" onerror="this.style.display=\'none\'"></div>'
-      : '<div class="apthumb apthumb-empty">📷</div>';
-    const photoBtn = '<button class="btn-photo" onclick="event.stopPropagation()">📷 Foto<input type="file" accept="image/*" onchange="uploadProductPhoto(\''+p.id+'\',this)"></button>';
-    const removePhotoBtn = hasImg ? '<button class="btn-photo-rm" onclick="removeProductPhoto(\''+p.id+'\')">✖ Quitar Foto</button>' : '';
-    d.innerHTML = thumbHtml
+    d.innerHTML='<div class="apthumb"><img src="'+(p.img||"")+'" alt="'+p.name+'" onerror="this.style.display=\'none\'"></div>'
       +'<div class="apinfo"><div class="apname">'+p.name+'</div><div class="apcat">'+p.cat+'</div><div class="apprice">'+fmt(p.price)+'</div></div>'
-      +'<div class="apbtns">'+photoBtn+removePhotoBtn+'<button class="btn-ed" onclick="editProduct(\''+p.id+'\')">✏ Editar</button><button class="btn-dl" onclick="deleteProduct(\''+p.id+'\')">🗑 Borrar</button></div>';
+      +'<div class="apbtns"><button class="btn-ed" onclick="editProduct(\''+p.id+'\')">✏ Editar</button><button class="btn-dl" onclick="deleteProduct(\''+p.id+'\')">🗑 Borrar</button></div>';
     list.appendChild(d);
   });
-}
-
-function uploadProductPhoto(prodId, input){
-  const file = input.files[0]; if(!file) return;
-  const apitem = input.closest('.apitem');
-  const photoBtn = apitem ? apitem.querySelector('.btn-photo') : null;
-  if(photoBtn){ photoBtn.style.pointerEvents='none'; photoBtn.textContent = '⏳ Subiendo...'; }
-  compressImage(file, 800, function(compressedBase64){
-    const idx = PRODUCTS.findIndex(function(p){ return p.id === prodId; });
-    if(idx > -1){
-      PRODUCTS[idx].img = compressedBase64;
-      saveData();
-      renderAdminList();
-      renderFeed();
-      toast('✅ Foto actualizada');
-    }
-  });
-}
-
-function removeProductPhoto(prodId){
-  if(!confirm('¿Quitar la foto de este producto?')) return;
-  const idx = PRODUCTS.findIndex(function(p){ return p.id === prodId; });
-  if(idx > -1){
-    PRODUCTS[idx].img = '';
-    saveData();
-    renderAdminList();
-    renderFeed();
-    toast('🗑 Foto eliminada');
-  }
 }
 
 
@@ -1631,7 +1607,7 @@ async function saveProduct(){
   const imgUrl=document.getElementById("afImgUrl").value.trim();
   
   if(!name){toast("⚠️ Escribe el nombre del producto");return;}
-  if(isNaN(price)||price<0){toast("⚠️ Ingresa un precio válido (0 para Consultar)");return;}
+  if(!price||price<=0){toast("⚠️ Ingresa un precio válido");return;}
   if(!cat){toast("⚠️ Selecciona una categoría");return;}
   
   let finalImg = imgUrl || "https://images.unsplash.com/photo-1490750967868-88df5691cc88?q=80&w=700&fit=crop";
